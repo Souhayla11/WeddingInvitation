@@ -1,0 +1,322 @@
+:root {
+  /* Palette */
+  --cream: #f6eee2;
+  --paper: #fbf7f0;
+  --cream-deep: #ede1cd;
+  --burgundy: #6b1e2e;
+  --burgundy-deep: #4a1320;
+  --ink: #3a1d23;
+  --ink-soft: #6c5156;
+  --orange: #c8662d;
+  --orange-ink: #a14a1c;
+  --sage: #8d9c7b;
+  --sage-ink: #52623f;
+  --pink: #e8b4ae;
+  --pink-ink: #a2525a;
+  --blue: #7591ab;
+  --blue-ink: #44627e;
+  --line: rgba(107, 30, 46, 0.16);
+
+  /* Type */
+  --font-display: 'Bodoni Moda', 'Bodoni 72', Didot, Georgia, serif;
+  --font-script: 'Pinyon Script', 'Snell Roundhand', cursive;
+  --font-body: 'Albert Sans', 'Helvetica Neue', Arial, sans-serif;
+
+  /* Layout */
+  --nav-h: 68px;
+  --gutter: clamp(20px, 5vw, 40px);
+  --max: 1120px;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Default accent; each section overrides these through data-accent. */
+  --accent: var(--burgundy);
+  --accent-ink: var(--burgundy);
+  --accent-soft: #efdcd9;
+
+  color-scheme: light;
+}
+
+[data-accent='burgundy'] {
+  --accent: var(--burgundy);
+  --accent-ink: var(--burgundy);
+  --accent-soft: #efdcd9;
+}
+[data-accent='orange'] {
+  --accent: var(--orange);
+  --accent-ink: var(--orange-ink);
+  --accent-soft: #f5dfcb;
+}
+[data-accent='pink'] {
+  --accent: var(--pink);
+  --accent-ink: var(--pink-ink);
+  --accent-soft: #f6e0dc;
+}
+[data-accent='blue'] {
+  --accent: var(--blue);
+  --accent-ink: var(--blue-ink);
+  --accent-soft: #dfe6ec;
+}
+[data-accent='sage'] {
+  --accent: var(--sage);
+  --accent-ink: var(--sage-ink);
+  --accent-soft: #e2e7d7;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 24px;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--cream);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.site {
+  position: relative;
+  isolation: isolate;
+}
+
+.site-main {
+  position: relative;
+  z-index: 1;
+}
+
+.site-main > section:not(#top)::before {
+  content: '';
+  display: block;
+  width: min(140px, 28vw);
+  height: 1px;
+  margin: 0 auto clamp(-40px, -5vw, -24px);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in srgb, var(--burgundy) 22%, transparent),
+    transparent
+  );
+  opacity: 0.85;
+  pointer-events: none;
+}
+
+.site-main > section:not(#top):first-of-type::before {
+  display: none;
+}
+
+/* Soft paper grain over the whole page */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  pointer-events: none;
+  opacity: 0.32;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .42 0 0 0 0 .3 0 0 0 0 .25 0 0 0 .14 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 500;
+  line-height: 1.08;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+
+h1 em,
+h2 em,
+h3 em {
+  font-style: italic;
+  font-weight: 400;
+}
+
+p,
+ul,
+ol,
+dl,
+dd,
+figure {
+  margin: 0;
+}
+
+ul,
+ol {
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  color: inherit;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+:focus-visible {
+  outline: 2px solid var(--orange);
+  outline-offset: 3px;
+}
+
+::selection {
+  background: var(--pink);
+  color: var(--burgundy-deep);
+}
+
+.container {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: calc(var(--max) + 2 * var(--gutter));
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: fixed;
+  top: 8px;
+  left: 8px;
+  z-index: 200;
+  padding: 10px 16px;
+  background: var(--burgundy);
+  color: var(--paper);
+  border-radius: 999px;
+  transform: translateY(-150%);
+  transition: transform 0.2s;
+}
+.skip-link:focus {
+  transform: none;
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6em;
+  min-height: 48px;
+  padding: 0.9em 1.7em;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  line-height: 1;
+  transition:
+    background-color 0.3s var(--ease-out),
+    color 0.3s var(--ease-out),
+    border-color 0.3s var(--ease-out),
+    transform 0.3s var(--ease-out),
+    box-shadow 0.3s var(--ease-out);
+}
+.btn:hover {
+  transform: translateY(-2px);
+}
+.btn:active {
+  transform: translateY(0);
+}
+.btn svg {
+  width: 1.25em;
+  height: 1.25em;
+}
+
+.btn-primary {
+  background: var(--burgundy);
+  color: var(--paper);
+  box-shadow: 0 12px 24px -14px rgba(74, 19, 32, 0.7);
+}
+.btn-primary:hover {
+  background: var(--burgundy-deep);
+  box-shadow: 0 16px 28px -14px rgba(74, 19, 32, 0.8);
+}
+
+.btn-outline {
+  background: transparent;
+  border-color: var(--accent-ink);
+  color: var(--accent-ink);
+}
+.btn-outline:hover {
+  background: var(--accent-ink);
+  color: var(--paper);
+}
+
+.text-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45em;
+  color: var(--accent-ink);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 2px;
+}
+.text-link svg {
+  width: 1.15em;
+  height: 1.15em;
+  transition: transform 0.3s var(--ease-out);
+}
+.text-link:hover svg {
+  transform: translate(2px, -2px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

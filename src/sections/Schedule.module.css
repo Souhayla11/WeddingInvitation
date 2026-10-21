@@ -1,0 +1,120 @@
+/* Desktop: time | node | description, like a printed order of the day */
+.wrap {
+  --time-w: clamp(110px, 16vw, 150px);
+  --gap: clamp(20px, 3vw, 32px);
+  --node: 56px;
+  position: relative;
+  max-width: 780px;
+  margin-inline: auto;
+}
+
+.track {
+  position: absolute;
+  top: 28px;
+  bottom: 28px;
+  left: calc(var(--time-w) + var(--gap) + var(--node) / 2 - 0.5px);
+  width: 1px;
+  background: var(--line);
+}
+
+.fill {
+  position: absolute;
+  inset: 0;
+  background: var(--orange);
+  transform-origin: top;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(28px, 4vw, 44px);
+}
+
+.item {
+  display: grid;
+  grid-template-columns: var(--time-w) var(--node) 1fr;
+  column-gap: var(--gap);
+  align-items: start;
+}
+
+.time {
+  justify-self: end;
+  padding-top: 4px;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(2rem, 4vw, 2.9rem);
+  line-height: 1;
+  color: var(--orange);
+  font-variant-numeric: lining-nums;
+}
+
+.node {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: var(--node);
+  height: var(--node);
+  border: 1px solid color-mix(in srgb, var(--orange) 45%, transparent);
+  border-radius: 50%;
+  background: var(--paper);
+  color: var(--orange-ink);
+  transition: background-color 0.3s, color 0.3s, transform 0.4s var(--ease-out);
+}
+
+.item:hover .node {
+  background: var(--orange);
+  color: var(--paper);
+  transform: scale(1.06);
+}
+
+.title {
+  padding-top: 6px;
+  font-size: clamp(1.35rem, 2.4vw, 1.7rem);
+  color: var(--burgundy);
+}
+
+.text {
+  max-width: 42ch;
+  margin-top: 6px;
+  color: var(--ink-soft);
+  font-size: 0.98rem;
+}
+
+@media (max-width: 720px) {
+  .wrap {
+    --time-w: 0px;
+    --gap: 0px;
+    --node: 46px;
+  }
+
+  .item {
+    grid-template-columns: var(--node) 1fr;
+    grid-template-areas:
+      'node time'
+      'node body';
+    column-gap: 18px;
+  }
+
+  .node {
+    grid-area: node;
+  }
+
+  .node svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .time {
+    grid-area: time;
+    justify-self: start;
+    font-size: 1.7rem;
+  }
+
+  .body {
+    grid-area: body;
+  }
+
+  .title {
+    padding-top: 2px;
+  }
+}

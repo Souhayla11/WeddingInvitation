@@ -1,0 +1,45 @@
+.switch {
+  --fg: var(--burgundy);
+  --pill: var(--burgundy);
+  --pill-fg: var(--paper);
+  display: inline-flex;
+  padding: 3px;
+  border: 1px solid color-mix(in srgb, var(--fg) 30%, transparent);
+  border-radius: 999px;
+}
+
+.switch[data-tone='light'] {
+  --fg: var(--paper);
+  --pill: var(--paper);
+  --pill-fg: var(--burgundy-deep);
+}
+
+.option {
+  position: relative;
+  min-width: 42px;
+  min-height: 34px;
+  padding: 0 10px;
+  border: 0;
+  border-radius: 999px;
+  background: none;
+  color: var(--fg);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  transition: color 0.25s;
+}
+
+.option[aria-pressed='true'] {
+  color: var(--pill-fg);
+}
+
+.pill {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--pill);
+}
+
+.label {
+  position: relative;
+}

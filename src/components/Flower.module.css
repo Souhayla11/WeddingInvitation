@@ -1,0 +1,29 @@
+.flower {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.burgundy {
+  color: var(--burgundy);
+}
+
+.orange {
+  color: var(--orange-ink);
+}
+
+.pink {
+  color: var(--pink-ink);
+}
+
+.blue {
+  color: var(--blue-ink);
+}
+
+.sage {
+  color: var(--sage-ink);
+}
+
+.cream {
+  color: #fbf7f0;
+}

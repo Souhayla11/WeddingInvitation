@@ -1,0 +1,74 @@
+.countdown {
+  display: flex;
+  justify-content: center;
+}
+
+.cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: clamp(68px, 14vw, 104px);
+  padding-inline: clamp(6px, 2vw, 18px);
+  transition: transform 0.4s var(--ease-out);
+}
+
+.cell:hover {
+  transform: translateY(-3px);
+}
+
+.cell:hover .value {
+  color: var(--orange-ink);
+}
+
+.cell + .cell {
+  border-left: 1px solid var(--line);
+}
+
+.value {
+  position: relative;
+  display: block;
+  height: 1.1em;
+  overflow: hidden;
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4.4vw, 3.1rem);
+  line-height: 1.1;
+  color: var(--burgundy);
+  font-variant-numeric: lining-nums tabular-nums;
+  transition: color 0.35s var(--ease-out);
+}
+
+.value span {
+  display: block;
+}
+
+.unit {
+  margin-top: 6px;
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.done {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.4rem;
+  color: var(--burgundy);
+}
+
+.countdown[data-light] .value {
+  color: var(--paper);
+}
+
+.countdown[data-light] .unit {
+  color: rgba(251, 247, 240, 0.78);
+}
+
+.countdown[data-light] .cell + .cell {
+  border-left-color: rgba(251, 247, 240, 0.22);
+}
+
+.countdown[data-light] .cell:hover .value {
+  color: #fbe0bb;
+}

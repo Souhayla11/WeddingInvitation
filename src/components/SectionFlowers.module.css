@@ -1,0 +1,32 @@
+.layer {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.mark {
+  position: absolute;
+  width: clamp(56px, 9vw, 96px);
+  height: clamp(56px, 9vw, 96px);
+  transform-origin: center center;
+}
+
+@media (max-width: 640px) {
+  .mark {
+    width: clamp(44px, 14vw, 72px);
+    height: clamp(44px, 14vw, 72px);
+  }
+
+  /* Hide the third flower on small screens to avoid clutter */
+  .mark:nth-child(3) {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mark {
+    opacity: inherit !important;
+  }
+}

@@ -1,0 +1,119 @@
+.aside {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: min(420px, 70vw);
+  padding: clamp(36px, 6vw, 52px) clamp(28px, 5vw, 40px);
+  border-radius: clamp(24px, 4vw, 32px);
+  text-align: center;
+  background:
+    radial-gradient(ellipse 90% 70% at 50% 0%, rgba(232, 180, 174, 0.45), transparent 55%),
+    radial-gradient(ellipse 80% 60% at 80% 100%, rgba(141, 156, 123, 0.35), transparent 50%),
+    var(--paper);
+  box-shadow: 0 28px 56px -36px rgba(74, 19, 32, 0.35);
+  overflow: hidden;
+}
+
+.glow {
+  position: absolute;
+  inset: auto 10% -40%;
+  height: 55%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(200, 102, 45, 0.22), transparent 70%);
+  pointer-events: none;
+  animation: emberPulse 4.5s ease-in-out infinite;
+}
+
+@keyframes emberPulse {
+  0%,
+  100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+}
+
+.iconRing {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 72px;
+  height: 72px;
+  margin-bottom: 20px;
+  border-radius: 50%;
+  background: var(--accent-soft);
+  color: var(--pink-ink);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--pink-ink) 25%, transparent);
+}
+
+.iconRing svg {
+  width: 32px;
+  height: 32px;
+}
+
+.kicker {
+  position: relative;
+  z-index: 1;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--sage-ink);
+}
+
+.when {
+  position: relative;
+  z-index: 1;
+  margin-top: 10px;
+  max-width: 22ch;
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3vw, 1.85rem);
+  line-height: 1.25;
+  color: var(--burgundy);
+}
+
+.script {
+  position: relative;
+  z-index: 1;
+  margin-top: 18px;
+  font-family: var(--font-script);
+  font-size: clamp(2.4rem, 5vw, 3.2rem);
+  line-height: 1;
+  color: var(--orange-ink);
+}
+
+.tags {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 28px;
+  padding: 0;
+  list-style: none;
+}
+
+.tags li {
+  padding: 0.45em 1em;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--burgundy);
+  background: color-mix(in srgb, var(--cream) 85%, var(--pink));
+  border: 1px solid var(--line);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glow {
+    animation: none;
+  }
+}
