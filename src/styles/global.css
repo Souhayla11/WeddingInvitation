@@ -215,6 +215,7 @@ button {
   border: 0;
 }
 
+/* Keyboard-only skip nav — hidden from sighted touch users unless Tab focuses it */
 .skip-link {
   position: fixed;
   top: 8px;
@@ -224,11 +225,24 @@ button {
   background: var(--burgundy);
   color: var(--paper);
   border-radius: 999px;
-  transform: translateY(-150%);
-  transition: transform 0.2s;
+  text-decoration: none;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  white-space: nowrap;
 }
-.skip-link:focus {
-  transform: none;
+.skip-link:focus-visible {
+  clip: auto;
+  clip-path: none;
+  width: auto;
+  height: auto;
+  overflow: visible;
 }
 
 /* Buttons */
