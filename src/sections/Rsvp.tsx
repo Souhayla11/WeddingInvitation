@@ -42,32 +42,39 @@ function validate(form: FormState): ErrorKey[] {
   return errors
 }
 
-/**
- * Posts to Netlify Forms once deployed (the matching static form lives in index.html).
- * During local development there is no form backend, so the request is simulated.
- */
+/** POSTs to the Netlify function, which appends a row in Google Sheets. */
 async function submitRsvp(form: FormState, lang: string) {
+  const payload = {
+    name: form.name.trim(),
+    email: form.email.trim(),
+    attending: form.attending,
+    guests: form.attending === 'yes' ? form.guests : 0,
+    recovery: form.attending === 'yes' ? form.recovery : '',
+    shuttle: form.attending === 'yes' ? form.shuttle : '',
+    message: form.message.trim(),
+    language: lang,
+  }
+
   if (import.meta.env.DEV) {
     await new Promise((resolve) => setTimeout(resolve, 900))
     return
   }
-  const fields: Record<string, string> = {
-    'form-name': 'rsvp',
-    name: form.name.trim(),
-    email: form.email.trim(),
-    attending: form.attending,
-    guests: form.attending === 'yes' ? String(form.guests) : '0',
-    recovery: form.attending === 'yes' ? form.recovery : '',
-    shuttle: form.attending === 'yes' ? form.shuttle : '',
-    message: form.message,
-    language: lang,
-  }
-  const res = await fetch('/', {
+
+  const res = await fetch('/.netlify/functions/submit-rsvp', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    body: new URLSearchParams(fields).toString(),
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload),
   })
-  if (!res.ok) throw new Error(`RSVP failed with status ${res.status}`)
+  if (!res.ok) {
+    let detail = ''
+    try {
+      const data = (await res.json()) as { error?: string }
+      detail = data.error ?? ''
+    } catch {
+      /* ignore */
+    }
+    throw new Error(detail || `RSVP failed with status ${res.status}`)
+  }
 }
 
 export function Rsvp() {
@@ -76,6 +83,7 @@ export function Rsvp() {
   const [form, setForm] = useState<FormState>(emptyForm)
   const [errors, setErrors] = useState<ErrorKey[]>([])
   const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle')
+  const [sendErrorDetail, setSendErrorDetail] = useState('')
   const [sentAs, setSentAs] = useState<{ name: string; attending: YesNo }>({ name: '', attending: '' })
 
   const set = <K extends keyof FormState>(key: K, value: FormState[K]) => {
@@ -92,12 +100,14 @@ export function Rsvp() {
       return
     }
     setStatus('sending')
+    setSendErrorDetail('')
     try {
       await submitRsvp(form, lang)
       setSentAs({ name: form.name.trim().split(/\s+/)[0], attending: form.attending })
       setStatus('sent')
       setForm(emptyForm)
-    } catch {
+    } catch (err) {
+      setSendErrorDetail(err instanceof Error ? err.message : '')
       setStatus('error')
     }
   }
@@ -281,7 +291,7 @@ export function Rsvp() {
 
               {status === 'error' && (
                 <p className={styles.sendError} role="alert">
-                  {t(rsvp.errorSend)}
+                  {sendErrorDetail || t(rsvp.errorSend)}
                 </p>
               )}
 

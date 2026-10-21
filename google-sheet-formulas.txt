@@ -1,0 +1,32 @@
+Wedding RSVP — Google Sheet layout
+==================================
+
+Row 1 headers (columns A–I):
+
+  A: Timestamp
+  B: Name
+  C: Email
+  D: Attending        (values: yes / no — do not change spelling)
+  E: Guests           (number; 0 when not attending)
+  F: Recovery dinner  (yes / no / blank)
+  G: Responses        (TOTAL — formula below, not filled by the website)
+  H: Attendees        (TOTAL — formula below)
+  I: Rejections       (TOTAL — formula below)
+
+Put these formulas in row 2 (same row as your first RSVP is fine; G–I stay as formulas):
+
+  G2  =COUNTA(B2:B)
+  H2  =SUMIF(D2:D,"yes",E2:E)
+  I2  =COUNTIF(D2:D,"no")
+
+What they mean:
+  Responses   — how many people submitted the form (rows with a name)
+  Attendees   — total guest count (sum of Guests where Attending = yes)
+  Rejections  — how many RSVPs chose no
+
+The Netlify function only writes columns A–F on each new row. Columns G–I are never overwritten.
+
+Netlify env (optional):
+  GOOGLE_SHEET_RANGE=Sheet1!A:F
+
+If your tab is not named Sheet1, change the name in that range.
