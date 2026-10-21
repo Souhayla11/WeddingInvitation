@@ -9,24 +9,41 @@ Row 1 headers (columns A–I):
   D: Attending        (values: yes / no — do not change spelling)
   E: Guests           (number; 0 when not attending)
   F: Recovery dinner  (yes / no / blank)
-  G: Responses        (TOTAL — formula below, not filled by the website)
-  H: Attendees        (TOTAL — formula below)
-  I: Rejections       (TOTAL — formula below)
+  G: Responses        (live total — formula below)
+  H: Attendees        (live total — formula below)
+  I: Rejections       (live total — formula below)
 
-Put these formulas in row 2 (same row as your first RSVP is fine; G–I stay as formulas):
+Dynamic totals (recommended)
+----------------------------
+Put these three formulas once in row 2 (cells G2, H2, I2). Leave A2:F2 empty
+until the first RSVP arrives, or keep the formulas in G2:I2 on the same row
+as your first guest — they will keep updating as new rows are added below.
 
-  G2  =COUNTA(B2:B)
-  H2  =SUMIF(D2:D,"yes",E2:E)
-  I2  =COUNTIF(D2:D,"no")
+  G2  =COUNTA(FILTER(B2:B, B2:B<>""))
+  H2  =SUM(FILTER(E2:E, D2:D="yes"))
+  I2  =COUNTIF(D2:D, "no")
+
+These ranges (B2:B, D2:D, E2:E) grow with every new submission, so the totals
+are always up to date — no need to copy formulas down.
 
 What they mean:
-  Responses   — how many people submitted the form (rows with a name)
-  Attendees   — total guest count (sum of Guests where Attending = yes)
-  Rejections  — how many RSVPs chose no
+  Responses   — number of RSVPs submitted (rows with a name)
+  Attendees   — total people coming (sum of Guests where Attending = yes)
+  Rejections  — number of “no” replies
 
-The Netlify function only writes columns A–F on each new row. Columns G–I are never overwritten.
+Optional: pin row 1 (View → Freeze → 1 row) so headers stay visible.
 
-Netlify env (optional):
+Timestamp column
+----------------
+New rows get a readable local time from the server, e.g.:
+  Wed, 21 Oct 2026, 11:25
+(Argentina / Buenos Aires timezone)
+
+Older rows may still show ISO format (2026-10-21T…); you can leave them or
+reformat manually. New submissions after redeploy use the friendly format.
+
+Netlify
+-------
   GOOGLE_SHEET_RANGE=Sheet1!A:F
 
-If your tab is not named Sheet1, change the name in that range.
+Change Sheet1 if your tab name is different.
