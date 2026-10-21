@@ -17,7 +17,6 @@ interface FormState {
   attending: YesNo
   guests: number
   recovery: YesNo
-  shuttle: YesNo
   message: string
 }
 
@@ -27,7 +26,6 @@ const emptyForm: FormState = {
   attending: '',
   guests: 1,
   recovery: '',
-  shuttle: '',
   message: '',
 }
 
@@ -50,7 +48,6 @@ async function submitRsvp(form: FormState, lang: string) {
     attending: form.attending,
     guests: form.attending === 'yes' ? form.guests : 0,
     recovery: form.attending === 'yes' ? form.recovery : '',
-    shuttle: form.attending === 'yes' ? form.shuttle : '',
     message: form.message.trim(),
     language: lang,
   }
@@ -270,10 +267,7 @@ export function Rsvp() {
                     transition={{ duration: 0.5, ease, delay: 0.05 }}
                   >
                     <div className={styles.revealInner}>
-                      <div className={styles.toggles}>
-                        <YesNoField label={t(rsvp.recovery)} name="recovery" value={form.recovery} onChange={(v) => set('recovery', v)} />
-                        <YesNoField label={t(rsvp.shuttle)} name="shuttle" value={form.shuttle} onChange={(v) => set('shuttle', v)} />
-                      </div>
+                      <YesNoField label={t(rsvp.recovery)} name="recovery" value={form.recovery} onChange={(v) => set('recovery', v)} />
                     </div>
                   </motion.div>
                 )}

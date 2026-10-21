@@ -25,7 +25,6 @@ interface RsvpBody {
   attending?: string
   guests?: number | string
   recovery?: string
-  shuttle?: string
   message?: string
   language?: string
 }
@@ -74,7 +73,6 @@ function validate(body: RsvpBody): { ok: true; data: NormalizedRsvp } | { ok: fa
       attending,
       guests,
       recovery: attending === 'yes' ? yesNo(body.recovery) : '',
-      shuttle: attending === 'yes' ? yesNo(body.shuttle) : '',
       message: (body.message ?? '').trim().slice(0, 2000),
       language: (body.language ?? '').trim().slice(0, 8),
     },
@@ -87,7 +85,6 @@ interface NormalizedRsvp {
   attending: 'yes' | 'no'
   guests: number
   recovery: '' | 'yes' | 'no'
-  shuttle: '' | 'yes' | 'no'
   message: string
   language: string
 }

@@ -164,7 +164,6 @@ export const rsvp = {
   fewer: { en: 'One fewer guest', es: 'Una persona menos' },
   more: { en: 'One more guest', es: 'Una persona más' },
   recovery: { en: 'Joining the recovery dinner on Saturday?', es: '¿Venís a la cena del día después?' },
-  shuttle: { en: 'Taking the wedding shuttle?', es: '¿Vas a usar el traslado de la boda?' },
   optionYes: { en: 'Yes', es: 'Sí' },
   optionNo: { en: 'No', es: 'No' },
   dietary: { en: 'Allergies or dietary needs', es: 'Alergias o restricciones alimentarias' },
