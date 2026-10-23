@@ -1,34 +1,35 @@
 Wedding RSVP — Google Sheet layout
 ==================================
 
-Row 1 headers (columns A–I):
+Row 1 headers (columns A–J):
 
   A: Timestamp
-  B: Name
-  C: Email
-  D: Attending        (values: yes / no — do not change spelling)
-  E: Guests           (number; 0 when not attending)
-  F: Recovery dinner  (yes / no / blank)
-  G: Responses        (live total — formula below)
-  H: Attendees        (live total — formula below)
-  I: Rejections       (live total — formula below)
+  B: Full name
+  C: Attending             (values: yes / no — do not change spelling)
+  D: Guest names           (blank when not attending)
+  E: Guests numbers        (number; 0 when not attending)
+  F: Recovery dinner       (yes / no / blank)
+  G: Notes                 (dietary requirements; blank when not attending)
+  H: Responses             (live total — formula below)
+  I: Attendees             (live total — formula below)
+  J: Rejections            (live total — formula below)
 
 Dynamic totals (recommended)
 ----------------------------
-Put these three formulas once in row 2 (cells G2, H2, I2). Leave A2:F2 empty
-until the first RSVP arrives, or keep the formulas in G2:I2 on the same row
+Put these three formulas once in row 2 (cells H2, I2, J2). Leave A2:G2 empty
+until the first RSVP arrives, or keep the formulas in H2:J2 on the same row
 as your first guest — they will keep updating as new rows are added below.
 
-  G2  =COUNTA(FILTER(B2:B, B2:B<>""))
-  H2  =SUM(FILTER(E2:E, D2:D="yes"))
-  I2  =COUNTIF(D2:D, "no")
+  H2  =COUNTA(FILTER(B2:B, B2:B<>""))
+  I2  =SUM(FILTER(E2:E, C2:C="yes"))
+  J2  =COUNTIF(C2:C, "no")
 
-These ranges (B2:B, D2:D, E2:E) grow with every new submission, so the totals
+These ranges (B2:B, C2:C, E2:E) grow with every new submission, so the totals
 are always up to date — no need to copy formulas down.
 
 What they mean:
   Responses   — number of RSVPs submitted (rows with a name)
-  Attendees   — total people coming (sum of Guests where Attending = yes)
+  Attendees   — total people coming (sum of Guests numbers where Attending = yes)
   Rejections  — number of “no” replies
 
 Optional: pin row 1 (View → Freeze → 1 row) so headers stay visible.
@@ -44,6 +45,6 @@ reformat manually. New submissions after redeploy use the friendly format.
 
 Netlify
 -------
-  GOOGLE_SHEET_RANGE=Sheet1!A:F
+  GOOGLE_SHEET_RANGE=Sheet1!A:G
 
 Change Sheet1 if your tab name is different.

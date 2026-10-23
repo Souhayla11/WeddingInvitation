@@ -25,12 +25,6 @@
   gap: 28px;
 }
 
-.row {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
-  gap: 28px 24px;
-}
-
 .field {
   display: flex;
   flex-direction: column;
@@ -189,10 +183,6 @@
   opacity: 0.75;
 }
 
-.guestsSection {
-  overflow: hidden;
-}
-
 .guestsInner {
   display: flex;
   flex-wrap: wrap;
@@ -204,24 +194,24 @@
   background: var(--cream);
 }
 
+.reveal {
+  overflow: hidden;
+  margin: -4px;
+  padding: 4px;
+}
+
+.revealInner {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
 .guestsLabel {
   font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--burgundy);
-}
-
-.reveal {
-  overflow: hidden;
-  margin: -14px 0;
-}
-
-.revealInner {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  padding: 8px 0 0;
 }
 
 .stepper {

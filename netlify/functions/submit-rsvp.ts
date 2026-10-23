@@ -2,7 +2,6 @@ import type { Handler, HandlerEvent } from '@netlify/functions'
 import { JWT } from 'google-auth-library'
 
 const MAX_GUESTS = 4
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 const RSVP_TIMEZONE = 'America/Argentina/Buenos_Aires'
 
 /** Human-readable local time for the wedding region (stored as plain text in column A). */
@@ -21,11 +20,11 @@ function formatRsvpTimestamp(date: Date) {
 
 interface RsvpBody {
   name?: string
-  email?: string
   attending?: string
+  guestNames?: string
   guests?: number | string
   recovery?: string
-  message?: string
+  dietary?: string
   language?: string
 }
 
@@ -48,11 +47,9 @@ function parseBody(event: HandlerEvent): RsvpBody | null {
 
 function validate(body: RsvpBody): { ok: true; data: NormalizedRsvp } | { ok: false; error: string } {
   const name = body.name?.trim() ?? ''
-  const email = body.email?.trim() ?? ''
   const attending = body.attending === 'yes' || body.attending === 'no' ? body.attending : ''
 
   if (!name) return { ok: false, error: 'Name is required.' }
-  if (!EMAIL_RE.test(email)) return { ok: false, error: 'A valid email is required.' }
   if (!attending) return { ok: false, error: 'Attending choice is required.' }
 
   let guests = Number(body.guests)
@@ -69,11 +66,11 @@ function validate(body: RsvpBody): { ok: true; data: NormalizedRsvp } | { ok: fa
     ok: true,
     data: {
       name,
-      email,
       attending,
+      guestNames: attending === 'yes' ? (body.guestNames ?? '').trim().slice(0, 500) : '',
       guests,
       recovery: attending === 'yes' ? yesNo(body.recovery) : '',
-      message: (body.message ?? '').trim().slice(0, 2000),
+      dietary: attending === 'yes' ? (body.dietary ?? '').trim().slice(0, 2000) : '',
       language: (body.language ?? '').trim().slice(0, 8),
     },
   }
@@ -81,11 +78,11 @@ function validate(body: RsvpBody): { ok: true; data: NormalizedRsvp } | { ok: fa
 
 interface NormalizedRsvp {
   name: string
-  email: string
   attending: 'yes' | 'no'
+  guestNames: string
   guests: number
   recovery: '' | 'yes' | 'no'
-  message: string
+  dietary: string
   language: string
 }
 
@@ -101,7 +98,7 @@ function sheetsConfig() {
   const email = process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL?.trim()
   const rawKey = process.env.GOOGLE_PRIVATE_KEY
   const sheetId = process.env.GOOGLE_SHEET_ID?.trim()
-  const range = process.env.GOOGLE_SHEET_RANGE?.trim() || 'Sheet1!A:F'
+  const range = process.env.GOOGLE_SHEET_RANGE?.trim() || 'Sheet1!A:G'
   if (!email || !rawKey || !sheetId) return null
   return { email, key: normalizePrivateKey(rawKey), sheetId, range }
 }
@@ -158,10 +155,11 @@ export const handler: Handler = async (event) => {
   const row = [
     formatRsvpTimestamp(new Date()),
     data.name,
-    data.email,
     data.attending,
+    data.guestNames,
     String(data.guests),
     data.recovery,
+    data.dietary,
   ]
 
   const config = sheetsConfig()

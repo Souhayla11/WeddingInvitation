@@ -13,42 +13,42 @@ type YesNo = '' | 'yes' | 'no'
 
 interface FormState {
   name: string
-  email: string
   attending: YesNo
+  guestNames: string
   guests: number
   recovery: YesNo
-  message: string
+  dietary: string
 }
 
 const emptyForm: FormState = {
   name: '',
-  email: '',
   attending: '',
+  guestNames: '',
   guests: 1,
   recovery: '',
-  message: '',
+  dietary: '',
 }
 
-type ErrorKey = 'name' | 'email' | 'attending'
+type ErrorKey = 'name' | 'attending'
 const MAX_GUESTS = 4
 
 function validate(form: FormState): ErrorKey[] {
   const errors: ErrorKey[] = []
   if (!form.name.trim()) errors.push('name')
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim())) errors.push('email')
   if (!form.attending) errors.push('attending')
   return errors
 }
 
 /** POSTs to the Netlify function, which appends a row in Google Sheets. */
 async function submitRsvp(form: FormState, lang: string) {
+  const coming = form.attending === 'yes'
   const payload = {
     name: form.name.trim(),
-    email: form.email.trim(),
     attending: form.attending,
-    guests: form.attending === 'yes' ? form.guests : 0,
-    recovery: form.attending === 'yes' ? form.recovery : '',
-    message: form.message.trim(),
+    guestNames: coming ? form.guestNames.trim() : '',
+    guests: coming ? form.guests : 0,
+    recovery: coming ? form.recovery : '',
+    dietary: coming ? form.dietary.trim() : '',
     language: lang,
   }
 
@@ -111,7 +111,6 @@ export function Rsvp() {
 
   const errorText: Record<ErrorKey, string> = {
     name: t(rsvp.errorName),
-    email: t(rsvp.errorEmail),
     attending: t(rsvp.errorAttending),
   }
   const has = (key: ErrorKey) => errors.includes(key)
@@ -158,38 +157,18 @@ export function Rsvp() {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3 }}
             >
-              <div className={styles.row}>
-                <Field id={`${id}-name`} label={t(rsvp.name)} error={has('name') ? errorText.name : undefined}>
-                  <input
-                    id={`${id}-name`}
-                    name="name"
-                    autoComplete="name"
-                    placeholder={t(rsvp.namePlaceholder)}
-                    value={form.name}
-                    onChange={(e) => set('name', e.target.value)}
-                    aria-invalid={has('name')}
-                    aria-describedby={has('name') ? `${id}-name-error` : undefined}
-                  />
-                </Field>
-                <Field
-                  id={`${id}-email`}
-                  label={t(rsvp.email)}
-                  hint={t(rsvp.emailHint)}
-                  error={has('email') ? errorText.email : undefined}
-                >
-                  <input
-                    id={`${id}-email`}
-                    name="email"
-                    type="email"
-                    autoComplete="email"
-                    inputMode="email"
-                    value={form.email}
-                    onChange={(e) => set('email', e.target.value)}
-                    aria-invalid={has('email')}
-                    aria-describedby={has('email') ? `${id}-email-error` : `${id}-email-hint`}
-                  />
-                </Field>
-              </div>
+              <Field id={`${id}-name`} label={t(rsvp.name)} error={has('name') ? errorText.name : undefined}>
+                <input
+                  id={`${id}-name`}
+                  name="name"
+                  autoComplete="name"
+                  placeholder={t(rsvp.namePlaceholder)}
+                  value={form.name}
+                  onChange={(e) => set('name', e.target.value)}
+                  aria-invalid={has('name')}
+                  aria-describedby={has('name') ? `${id}-name-error` : undefined}
+                />
+              </Field>
 
               <fieldset className={styles.fieldset} aria-describedby={has('attending') ? `${id}-attending-error` : undefined}>
                 <legend className={styles.label}>{t(rsvp.attending)}</legend>
@@ -221,67 +200,67 @@ export function Rsvp() {
               </fieldset>
 
               <AnimatePresence initial={false}>
-                {form.attending === 'yes' && (
+                {form.attending !== 'no' && (
                   <motion.div
-                    className={styles.guestsSection}
+                    key="details"
+                    className={styles.reveal}
                     initial={{ height: 0, opacity: 0 }}
                     animate={{ height: 'auto', opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
                     transition={{ duration: 0.45, ease }}
                   >
-                    <div className={styles.guestsInner}>
-                      <span className={styles.guestsLabel} id={`${id}-guests-label`}>
-                        {t(rsvp.guests)}
-                      </span>
-                      <div className={styles.stepper} role="group" aria-labelledby={`${id}-guests-label`}>
-                        <button
-                          type="button"
-                          onClick={() => set('guests', Math.max(1, form.guests - 1))}
-                          disabled={form.guests <= 1}
-                          aria-label={t(rsvp.fewer)}
-                        >
-                          <Icon name="minus" />
-                        </button>
-                        <output aria-live="polite">{form.guests}</output>
-                        <button
-                          type="button"
-                          onClick={() => set('guests', Math.min(MAX_GUESTS, form.guests + 1))}
-                          disabled={form.guests >= MAX_GUESTS}
-                          aria-label={t(rsvp.more)}
-                        >
-                          <Icon name="plus" />
-                        </button>
-                      </div>
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-
-              <AnimatePresence initial={false}>
-                {form.attending === 'yes' && (
-                  <motion.div
-                    className={styles.reveal}
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: 'auto', opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.5, ease, delay: 0.05 }}
-                  >
                     <div className={styles.revealInner}>
+                      <Field id={`${id}-guestNames`} label={t(rsvp.guestNames)} optional={t(rsvp.optional)}>
+                        <input
+                          id={`${id}-guestNames`}
+                          name="guestNames"
+                          placeholder={t(rsvp.guestNamesPlaceholder)}
+                          value={form.guestNames}
+                          onChange={(e) => set('guestNames', e.target.value)}
+                        />
+                      </Field>
+
+                      <div className={styles.guestsInner}>
+                        <span className={styles.guestsLabel} id={`${id}-guests-label`}>
+                          {t(rsvp.guests)}
+                        </span>
+                        <div className={styles.stepper} role="group" aria-labelledby={`${id}-guests-label`}>
+                          <button
+                            type="button"
+                            onClick={() => set('guests', Math.max(1, form.guests - 1))}
+                            disabled={form.guests <= 1}
+                            aria-label={t(rsvp.fewer)}
+                          >
+                            <Icon name="minus" />
+                          </button>
+                          <output aria-live="polite">{form.guests}</output>
+                          <button
+                            type="button"
+                            onClick={() => set('guests', Math.min(MAX_GUESTS, form.guests + 1))}
+                            disabled={form.guests >= MAX_GUESTS}
+                            aria-label={t(rsvp.more)}
+                          >
+                            <Icon name="plus" />
+                          </button>
+                        </div>
+                      </div>
+
                       <YesNoField label={t(rsvp.recovery)} name="recovery" value={form.recovery} onChange={(v) => set('recovery', v)} />
+
+                      <Field id={`${id}-dietary`} label={t(rsvp.dietary)} optional={t(rsvp.optional)}>
+                        <textarea
+                          id={`${id}-dietary`}
+                          name="dietary"
+                          rows={3}
+                          placeholder={t(rsvp.dietaryPlaceholder)}
+                          value={form.dietary}
+                          onChange={(e) => set('dietary', e.target.value)}
+                        />
+                      </Field>
                     </div>
                   </motion.div>
                 )}
               </AnimatePresence>
-
-              <Field id={`${id}-message`} label={t(rsvp.message)} optional={t(rsvp.optional)}>
-                <textarea
-                  id={`${id}-message`}
-                  name="message"
-                  rows={3}
-                  value={form.message}
-                  onChange={(e) => set('message', e.target.value)}
-                />
-              </Field>
 
               {status === 'error' && (
                 <p className={styles.sendError} role="alert">
