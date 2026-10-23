@@ -81,7 +81,7 @@ export const templateDecor: Record<DecorZone, DecorMark[]> = {
     { kind: 'watercolor', variant: 'sketchSprig', tone: 'cream', top: '8%', right: '4%', rotate: 20, scale: 1, opacity: 0.45 },
   ],
   footer: [
-    { kind: 'watercolor', variant: 'spray', tone: 'burgundy', top: '24%', left: '10%', rotate: 12, scale: 0.88, opacity: 0.35 },
+    { kind: 'watercolor', variant: 'spray', tone: 'burgundy', top: '46%', right: '22%', rotate: 12, scale: 0.88, opacity: 0.35 },
     { kind: 'watercolor', variant: 'peony', tone: 'sage', top: '20%', right: '9%', rotate: -10, scale: 0.8, opacity: 0.32 },
     { kind: 'watercolor', variant: 'sketchRose', tone: 'burgundy', bottom: '14%', right: '14%', rotate: -6, scale: 0.9, opacity: 0.6 },
   ],

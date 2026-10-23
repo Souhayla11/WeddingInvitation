@@ -19,6 +19,30 @@
   pointer-events: none;
 }
 
+/* Desktop: the whole illustration, left of the centred text; soft edges hide the image's grey box */
+@media (min-width: 768px) {
+  .footer {
+    min-height: clamp(520px, 62vh, 700px);
+  }
+
+  .designBg {
+    inset: 0 auto 0 clamp(8px, 6vw, 140px);
+    width: auto;
+    object-fit: contain;
+    opacity: 0.9;
+    /* Lifts the flat #e3e3e3 grey to white, which multiply then makes invisible */
+    filter: brightness(1.12);
+    -webkit-mask-image:
+      linear-gradient(90deg, transparent 0%, #000 12%, #000 88%, transparent 100%),
+      linear-gradient(180deg, transparent 0%, #000 30%, #000 97%, transparent 100%);
+    -webkit-mask-composite: source-in;
+    mask-image:
+      linear-gradient(90deg, transparent 0%, #000 12%, #000 88%, transparent 100%),
+      linear-gradient(180deg, transparent 0%, #000 30%, #000 97%, transparent 100%);
+    mask-composite: intersect;
+  }
+}
+
 /* Light wash behind the centered text only; edges let the art show */
 .footer::after {
   content: '';

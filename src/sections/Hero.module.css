@@ -6,7 +6,69 @@
   min-height: 100svh;
   padding: calc(var(--nav-h) + clamp(40px, 9vh, 88px)) var(--gutter) clamp(120px, 18vh, 200px);
   overflow: hidden;
-  background: #e9e7ec;
+  background: #e3e3e3;
+}
+
+/* Hand-drawn frame, as on the printed invitation: top + both sides, stopping above the art */
+.frame {
+  position: absolute;
+  z-index: 3;
+  inset: calc(var(--nav-h) + 6px) clamp(12px, 2.4vw, 36px) 0;
+  pointer-events: none;
+}
+
+.frame svg {
+  position: absolute;
+  overflow: visible;
+}
+
+.frame path {
+  fill: none;
+  stroke: color-mix(in srgb, var(--burgundy) 62%, transparent);
+  stroke-width: 1.15;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.frame .echo {
+  stroke: color-mix(in srgb, var(--burgundy) 32%, transparent);
+  stroke-width: 0.9;
+}
+
+.lineTop {
+  top: 0;
+  left: -10px;
+  right: -10px;
+  width: calc(100% + 20px);
+  height: 8px;
+}
+
+.lineLeft,
+.lineRight {
+  top: -12px;
+  width: 8px;
+  -webkit-mask-image: linear-gradient(180deg, #000 78%, transparent);
+  mask-image: linear-gradient(180deg, #000 78%, transparent);
+}
+
+.lineLeft {
+  left: -4px;
+  height: 64%;
+}
+
+.lineRight {
+  right: -4px;
+  height: 44%;
+}
+
+@media (min-width: 1024px) {
+  .lineLeft {
+    height: 86%;
+  }
+
+  .lineRight {
+    height: 17%;
+  }
 }
 
 /* Soft blend into details — lighter on phone so it doesn’t read as a hard band */
@@ -16,7 +78,7 @@
   inset-inline: 0;
   bottom: 0;
   z-index: 2;
-  height: min(36vh, 320px);
+  height: min(20vh, 180px);
   pointer-events: none;
   background: linear-gradient(
     180deg,
@@ -28,7 +90,7 @@
 
 @media (max-width: 767px) {
   .hero::after {
-    height: min(20svh, 170px);
+    height: min(11svh, 96px);
     background: linear-gradient(
       180deg,
       transparent 0%,
@@ -73,13 +135,16 @@
 
 .names {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.06em;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0.16em;
   width: 100%;
-  font-size: clamp(3.2rem, 10vw, 6.85rem);
+  font-size: clamp(2.2rem, 12.6vw, 3.6rem);
   font-weight: 500;
-  line-height: 0.94;
+  line-height: 1;
+  white-space: nowrap;
   color: var(--burgundy);
   letter-spacing: -0.02em;
   text-shadow: var(--hero-text-glow);
@@ -92,9 +157,8 @@
 
 .amp {
   display: block;
-  margin-block: 0.04em;
   font-family: var(--font-script);
-  font-size: 0.52em;
+  font-size: 0.72em;
   font-weight: 400;
   line-height: 1;
   color: var(--orange-ink);
@@ -197,21 +261,54 @@
   }
 }
 
-@media (max-width: 760px) {
+/* Phones and tablets: text in the blank top, art filling the lower part */
+@media (max-width: 1023px) {
   .hero {
-    padding-top: calc(var(--nav-h) + clamp(14px, 3.5vh, 32px));
+    padding-top: calc(var(--nav-h) + clamp(22px, 4.5svh, 48px));
   }
 
-  .names {
-    font-size: clamp(2.5rem, 13vw, 3.6rem);
+  .eyebrow {
+    margin-bottom: 16px;
   }
 
   .date {
-    margin-top: clamp(36px, 8svh, 72px);
+    margin-top: 18px;
+  }
+
+  .date::before {
+    margin-bottom: 8px;
   }
 
   .countdown {
+    margin-top: 16px;
     padding-inline: 10px;
+  }
+
+  .actions {
+    margin-top: 22px;
+  }
+}
+
+/* Desktop: text in the blank left side, art on the right */
+@media (min-width: 1024px) {
+  .hero {
+    align-items: center;
+    justify-content: flex-start;
+    padding: calc(var(--nav-h) + 32px) 0 clamp(80px, 12vh, 140px);
+  }
+
+  .inner {
+    width: 44vw;
+    max-width: 680px;
+    margin: 0 0 0 clamp(32px, 4vw, 96px);
+  }
+
+  .names {
+    font-size: clamp(3rem, 4.5vw, 5.4rem);
+  }
+
+  .scroll {
+    left: calc(clamp(32px, 4vw, 96px) + min(22vw, 340px));
   }
 }
 

@@ -4,18 +4,27 @@ import { JWT } from 'google-auth-library'
 const MAX_GUESTS = 4
 const RSVP_TIMEZONE = 'America/Argentina/Buenos_Aires'
 
-/** Human-readable local time for the wedding region (stored as plain text in column A). */
+/**
+ * Human-readable local time for the wedding region, e.g. "Fri 23 Oct 2026, 16:30".
+ * The leading apostrophe makes Sheets keep it as text (USER_ENTERED would otherwise
+ * reinterpret it as a date serial number or a locale-dependent format).
+ */
 function formatRsvpTimestamp(date: Date) {
-  return new Intl.DateTimeFormat('en-GB', {
-    timeZone: RSVP_TIMEZONE,
-    weekday: 'short',
-    day: 'numeric',
-    month: 'short',
-    year: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit',
-    hour12: false,
-  }).format(date)
+  const parts = Object.fromEntries(
+    new Intl.DateTimeFormat('en-GB', {
+      timeZone: RSVP_TIMEZONE,
+      weekday: 'short',
+      day: 'numeric',
+      month: 'short',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      hourCycle: 'h23',
+    })
+      .formatToParts(date)
+      .map((p) => [p.type, p.value]),
+  )
+  return `'${parts.weekday} ${parts.day} ${parts.month} ${parts.year}, ${parts.hour}:${parts.minute}`
 }
 
 interface RsvpBody {

@@ -67,7 +67,7 @@ export const detailNotes: Note[] = [
     icon: 'dress',
     title: { en: 'Dress code', es: 'Vestimenta' },
     text: {
-      en: 'Please dress in cocktail attire.',
+      en: 'Please dress in Cocktail Attire.',
       es: 'Les pedimos vestimenta de cóctel.',
     },
   },

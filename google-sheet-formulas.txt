@@ -37,8 +37,12 @@ Optional: pin row 1 (View → Freeze → 1 row) so headers stay visible.
 Timestamp column
 ----------------
 New rows get a readable local time from the server, e.g.:
-  Wed, 21 Oct 2026, 11:25
-(Argentina / Buenos Aires timezone)
+  Fri 23 Oct 2026, 16:30
+(Argentina / Buenos Aires timezone, 24-hour clock)
+
+It is saved as plain text, so Sheets shows it exactly like that and never turns
+it into a date number. If old rows show numbers like 46318.68, select column A
+and choose Format → Number → Date time to make them readable.
 
 Older rows may still show ISO format (2026-10-21T…); you can leave them or
 reformat manually. New submissions after redeploy use the friendly format.

@@ -38,6 +38,26 @@ export function Hero({ ready }: { ready: boolean }) {
     <section id="top" className={styles.hero} aria-labelledby="hero-title">
       <HeroBackground play={ready} />
 
+      <motion.div
+        className={styles.frame}
+        aria-hidden="true"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: ready ? 1 : 0 }}
+        transition={{ duration: 1.2, delay: 0.6 }}
+      >
+        <svg className={styles.lineTop} viewBox="0 0 100 10" preserveAspectRatio="none">
+          <path d="M0 5 C 25 3.6, 60 6.4, 100 4.6" />
+          <path className={styles.echo} d="M0 6.4 C 18 5.6, 30 6.8, 42 6" />
+        </svg>
+        <svg className={styles.lineLeft} viewBox="0 0 10 100" preserveAspectRatio="none">
+          <path d="M5 0 C 3.6 30, 6.4 62, 4.8 100" />
+          <path className={styles.echo} d="M6.4 0 C 5.8 12, 6.8 22, 6.1 34" />
+        </svg>
+        <svg className={styles.lineRight} viewBox="0 0 10 100" preserveAspectRatio="none">
+          <path d="M5 0 C 6.4 35, 3.6 65, 5.2 100" />
+        </svg>
+      </motion.div>
+
       <motion.div className={styles.inner} variants={container} initial="hidden" animate={ready ? 'show' : 'hidden'}>
         <motion.p className={styles.eyebrow} variants={fadeUp}>
           {t(hero.eyebrow)}
