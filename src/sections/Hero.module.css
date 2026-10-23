@@ -262,9 +262,36 @@
 }
 
 /* Phones and tablets: text in the blank top, art filling the lower part */
+.art {
+  display: none;
+}
+
 @media (max-width: 1023px) {
   .hero {
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
     padding-top: calc(var(--nav-h) + clamp(22px, 4.5svh, 48px));
+    padding-bottom: 0;
+  }
+
+  /*
+   * design2 sits in the flow right after the buttons, so it can never collide with
+   * them. The top 44.5% of the image (0.669 × width) is blank grey matching the hero,
+   * so it is pulled up under the text until the cake starts 40px below the buttons.
+   */
+  .art {
+    --w: min(135vw, 70svh);
+    position: relative;
+    z-index: 1;
+    display: block;
+    align-self: flex-end;
+    width: var(--w);
+    max-width: none;
+    height: auto;
+    margin-top: calc(40px - var(--w) * 0.669);
+    margin-right: calc(-1 * var(--gutter));
+    pointer-events: none;
   }
 
   .eyebrow {

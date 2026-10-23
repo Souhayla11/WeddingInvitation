@@ -1,4 +1,5 @@
 import { motion, type Variants } from 'motion/react'
+import heroArt from '../../designs/design2.jpeg'
 import { Countdown } from '../components/Countdown'
 import { Icon } from '../components/Icon'
 import { HeroBackground } from '../components/HeroBackground'
@@ -93,6 +94,16 @@ export function Hero({ ready }: { ready: boolean }) {
           </a>
         </motion.div>
       </motion.div>
+
+      <motion.img
+        className={styles.art}
+        src={heroArt}
+        alt=""
+        aria-hidden="true"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: ready ? 1 : 0 }}
+        transition={{ duration: 1.4, ease, delay: 0.3 }}
+      />
 
       <motion.a
         href="#details"
