@@ -198,12 +198,16 @@
 }
 
 @media (max-width: 760px) {
+  .hero {
+    padding-top: calc(var(--nav-h) + clamp(14px, 3.5vh, 32px));
+  }
+
   .names {
     font-size: clamp(2.5rem, 13vw, 3.6rem);
   }
 
   .date {
-    margin-top: 22px;
+    margin-top: clamp(36px, 8svh, 72px);
   }
 
   .countdown {

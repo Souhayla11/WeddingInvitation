@@ -1,5 +1,6 @@
 import { motion, useReducedMotion } from 'motion/react'
 import { useEffect, useRef, useState } from 'react'
+import design2Art from '../../designs/design2.jpeg'
 import { envelope } from '../content/ui'
 import { couple, dateShort } from '../content/wedding'
 import { useLang } from '../i18n/LanguageContext'
@@ -81,6 +82,7 @@ export function Envelope({ onOpen }: { onOpen: () => void }) {
             animate={{ y: cardOut ? '-62%' : '0%' }}
             transition={{ duration: 1.1, ease }}
           >
+            <img className={styles.cardArt} src={design2Art} alt="" aria-hidden="true" />
             <span className={styles.cardLine}>{t(envelope.cardLine)}</span>
             <span className={styles.cardNames}>
               {couple.one} <i>&amp;</i> {couple.two}
