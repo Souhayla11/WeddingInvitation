@@ -72,3 +72,36 @@
 .countdown[data-light] .cell:hover .value {
   color: #fbe0bb;
 }
+
+.countdown[data-text-glow] .value,
+.countdown[data-text-glow] .unit,
+.done[data-text-glow] {
+  text-shadow: var(--hero-text-glow);
+}
+
+.countdown[data-hero-glass] .cell {
+  min-width: clamp(52px, 11vw, 78px);
+  padding-inline: clamp(4px, 1.2vw, 12px);
+}
+
+.countdown[data-hero-glass] .value {
+  height: 1.05em;
+  font-size: clamp(1.45rem, 3.2vw, 2.25rem);
+  color: var(--burgundy);
+  text-shadow: 0 0 18px rgba(251, 247, 240, 0.85);
+}
+
+.countdown[data-hero-glass] .unit {
+  margin-top: 4px;
+  font-size: 0.58rem;
+  letter-spacing: 0.16em;
+  color: var(--ink-soft);
+}
+
+.countdown[data-hero-glass] .cell + .cell {
+  border-left-color: var(--line);
+}
+
+.countdown[data-hero-glass] .cell:hover .value {
+  color: var(--orange-ink);
+}

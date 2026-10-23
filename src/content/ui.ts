@@ -59,32 +59,32 @@ export const sectionCopy: Record<SectionId, SectionCopy> = {
     eyebrow: { en: 'Friday 12 March 2027', es: 'Viernes 12 de marzo de 2027' },
     title: { en: 'Wedding *details*', es: 'Detalles de la *boda*' },
     intro: {
-      en: 'Two places, one night. The ceremony is at the chapel; the celebration follows at the estancia, a short ride away.',
-      es: 'Dos lugares y una sola noche. La ceremonia es en la capilla y la fiesta sigue en la estancia, a pocos minutos.',
+      en: 'We are delighted to formally invite you to our wedding.\nFriday, 12th of March 2027',
+      es: 'Tenemos el agrado de invitarte formalmente a nuestra boda.\nViernes 12 de marzo de 2027',
     },
   },
   schedule: {
-    eyebrow: { en: 'From 18:30 until sunrise', es: 'De 18:30 hasta que salga el sol' },
+    eyebrow: { en: 'From 14:00 into the night', es: 'Desde las 14:00 hasta la noche' },
     title: { en: 'The day, *hour by hour*', es: 'El día, *hora a hora*' },
     intro: {
-      en: 'Timings are a guide — this is Argentina, and the party runs late. Shuttle times are fixed, though.',
-      es: 'Los horarios son orientativos: es Argentina y la fiesta termina tarde. Los del traslado, eso sí, son fijos.',
+      en: 'Here is how the day will unfold. We can’t wait to celebrate with you.',
+      es: 'Así va a ser el día. ¡Tenemos muchas ganas de celebrarlo con ustedes!',
     },
   },
   recovery: {
     eyebrow: { en: 'Saturday 13 March', es: 'Sábado 13 de marzo' },
     title: { en: 'Recovery *dinner*', es: 'Cena del *día después*' },
     intro: {
-      en: 'Not ready for it to end? Neither are we. Join us the next evening for a slow, casual asado.',
-      es: '¿Te quedaste con ganas de más? Nosotros también. Vení la noche siguiente a un asado tranquilo e informal.',
+      en: 'Join us the next evening!',
+      es: '¡Acompañanos la noche siguiente!',
     },
   },
   stay: {
-    eyebrow: { en: 'Near Estancia Los Álamos', es: 'Cerca de la Estancia Los Álamos' },
+    eyebrow: { en: 'Bariloche & El Bolsón', es: 'Bariloche y El Bolsón' },
     title: { en: 'Accommodation *& transport*', es: 'Alojamiento *y traslados*' },
     intro: {
-      en: 'We have saved rooms at three places near the estancia. Stay at any of them and the wedding shuttle will do the rest.',
-      es: 'Reservamos habitaciones en tres lugares cerca de la estancia. Alojate en cualquiera y el traslado de la boda se encarga del resto.',
+      en: 'A few suggestions for where to stay and how to get around.',
+      es: 'Algunas sugerencias sobre dónde alojarte y cómo moverte.',
     },
   },
   faq: {
@@ -109,12 +109,11 @@ export const details = {
   directions: { en: 'Get directions', es: 'Cómo llegar' },
   calendar: { en: 'Add to calendar', es: 'Agregar al calendario' },
   calendarTitle: { en: 'Daniella & José’s wedding', es: 'Boda de Daniella y José' },
-} satisfies Record<string, Text>
-
-export const recoveryTags = {
-  asado: { en: 'Asado', es: 'Asado' },
-  malbec: { en: 'Malbec', es: 'Malbec' },
-  quincho: { en: 'Quincho', es: 'Quincho' },
+  toFollow: { en: 'To follow', es: 'A continuación' },
+  closing: {
+    en: 'We would love for you to join us as we celebrate.',
+    es: 'Nos encantaría que nos acompañes a celebrar.',
+  },
 } satisfies Record<string, Text>
 
 export const recovery = {
@@ -128,17 +127,14 @@ export const recovery = {
 
 export const stay = {
   hotelsTitle: { en: 'Where to stay', es: 'Dónde alojarse' },
-  code: { en: 'Guest code', es: 'Código' },
-  map: { en: 'View on map', es: 'Ver en el mapa' },
-  travelTitle: { en: 'Getting here', es: 'Cómo llegar' },
+  thereTitle: { en: 'Getting there', es: 'Cómo llegar' },
+  aroundTitle: { en: 'Getting around', es: 'Cómo moverse' },
   shuttleTitle: { en: 'Wedding shuttle', es: 'Traslado de la boda' },
   shuttleText: {
-    en: 'Free for all guests. No need to book — just tell us in the RSVP so we get the right size bus.',
-    es: 'Gratis para todos los invitados. No hace falta reservar: indicalo en la confirmación así calculamos el tamaño del micro.',
+    en: 'On the wedding day, we’ll arrange shuttles to and from the ceremony for guests staying at the hotel.',
+    es: 'El día de la boda vamos a organizar traslados de ida y vuelta a la ceremonia para los invitados que se alojen en el hotel.',
   },
   shuttleDate: { en: 'Fri 12 Mar', es: 'Vie 12 mar' },
-  departs: { en: 'Departs', es: 'Salida' },
-  route: { en: 'Route', es: 'Recorrido' },
 } satisfies Record<string, Text>
 
 export const faq = {

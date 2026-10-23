@@ -28,7 +28,7 @@ export function Schedule() {
               </span>
               <div className={styles.body}>
                 <h3 className={styles.title}>{t(item.title)}</h3>
-                <p className={styles.text}>{t(item.text)}</p>
+                {item.text && <p className={styles.text}>{t(item.text)}</p>}
               </div>
             </motion.li>
           ))}

@@ -2,13 +2,43 @@
   position: relative;
   overflow: clip;
   padding: clamp(72px, 10vw, 120px) var(--gutter) calc(48px + env(safe-area-inset-bottom, 0px));
-  background: var(--cream-deep);
+  background: linear-gradient(180deg, var(--cream) 0%, var(--cream-deep) 55%, color-mix(in srgb, var(--wash) 35%, var(--cream-deep)) 100%);
   text-align: center;
+}
+
+.designBg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 42% 72%;
+  opacity: 0.75;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+
+/* Light wash behind the centered text only; edges let the art show */
+.footer::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      ellipse 60% 55% at 50% 45%,
+      color-mix(in srgb, var(--cream) 70%, transparent) 0%,
+      color-mix(in srgb, var(--cream) 35%, transparent) 60%,
+      transparent 100%
+    ),
+    linear-gradient(180deg, color-mix(in srgb, var(--cream) 60%, transparent) 0%, transparent 22%);
 }
 
 .inner {
   position: relative;
-  z-index: 1;
+  z-index: 3;
   display: flex;
   flex-direction: column;
   align-items: center;

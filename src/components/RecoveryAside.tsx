@@ -1,7 +1,7 @@
 import { motion } from 'motion/react'
 import { Icon } from './Icon'
 import { recoveryFacts } from '../content/recovery'
-import { recovery, recoveryTags } from '../content/ui'
+import { recovery } from '../content/ui'
 import { useLang } from '../i18n/LanguageContext'
 import styles from './RecoveryAside.module.css'
 
@@ -29,11 +29,6 @@ export function RecoveryAside() {
       <p className={styles.kicker}>{t(when.label)}</p>
       <p className={styles.when}>{t(when.value)}</p>
       <p className={styles.script}>{t(recovery.script)}</p>
-      <ul className={styles.tags}>
-        <li>{t(recoveryTags.asado)}</li>
-        <li>{t(recoveryTags.malbec)}</li>
-        <li>{t(recoveryTags.quincho)}</li>
-      </ul>
     </motion.aside>
   )
 }

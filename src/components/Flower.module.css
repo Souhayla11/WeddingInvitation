@@ -2,28 +2,99 @@
   display: block;
   width: 100%;
   height: 100%;
+  overflow: visible;
+}
+
+.wash {
+  transform-origin: 60px 60px;
+}
+
+.petalDeep {
+  fill: var(--fl-deep);
+}
+
+.petalLight {
+  fill: var(--fl-light);
+}
+
+.centerWash {
+  fill: var(--fl-center);
+}
+
+.leaf {
+  fill: var(--fl-leaf);
+}
+
+.sketch {
+  stroke: var(--fl-sketch);
+  opacity: 0.55;
+}
+
+/* Pen linework for the sketched florals */
+.line {
+  fill: none;
+  stroke: var(--fl-line, var(--fl-deep));
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.dot {
+  fill: var(--fl-line, var(--fl-deep));
 }
 
 .burgundy {
-  color: var(--burgundy);
+  --fl-deep: #6b1e2e;
+  --fl-light: #e8b4ae;
+  --fl-center: #a2525a;
+  --fl-leaf: #8d9c7b;
+  --fl-sketch: #3a1d23;
 }
 
 .orange {
-  color: var(--orange-ink);
+  --fl-deep: #c8662d;
+  --fl-light: #f5dfcb;
+  --fl-center: #a14a1c;
+  --fl-leaf: #8d9c7b;
+  --fl-sketch: #3a1d23;
 }
 
 .pink {
-  color: var(--pink-ink);
+  --fl-deep: #a2525a;
+  --fl-light: #f5e4e1;
+  --fl-center: #e8b4ae;
+  --fl-leaf: #8d9c7b;
+  --fl-sketch: #3a1d23;
 }
 
 .blue {
-  color: var(--blue-ink);
+  --fl-deep: #44627e;
+  --fl-light: #dfe6ec;
+  --fl-center: #7591ab;
+  --fl-leaf: #8d9c7b;
+  --fl-sketch: #3a1d23;
 }
 
 .sage {
-  color: var(--sage-ink);
+  --fl-deep: #52623f;
+  --fl-light: #e8ece2;
+  --fl-center: #8d9c7b;
+  --fl-leaf: #8d9c7b;
+  --fl-sketch: #3a1d23;
 }
 
 .cream {
-  color: #fbf7f0;
+  --fl-deep: #6b1e2e;
+  --fl-light: #fbf7f0;
+  --fl-center: #e8b4ae;
+  --fl-leaf: #8d9c7b;
+  --fl-sketch: #fbf7f0;
+  --fl-line: #fbf7f0;
+}
+
+.blush {
+  --fl-deep: #6b1e2e;
+  --fl-light: #e8b4ae;
+  --fl-center: #f3ebe4;
+  --fl-leaf: #8d9c7b;
+  --fl-sketch: #3a1d23;
 }

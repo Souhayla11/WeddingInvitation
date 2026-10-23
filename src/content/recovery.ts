@@ -1,7 +1,10 @@
 import type { IconName } from '../components/Icon'
 import type { Text } from '../i18n/types'
 
-export const recoveryMapQuery = 'Estancia Los Álamos Argentina'
+/** Set once the venue is confirmed; the directions button stays hidden until then. */
+export const recoveryMapQuery: string | null = null
+
+const toBeConfirmed: Text = { en: 'To be confirmed', es: 'A confirmar' }
 
 export interface RecoveryFact {
   icon: IconName
@@ -13,30 +16,21 @@ export const recoveryFacts: RecoveryFact[] = [
   {
     icon: 'calendar',
     label: { en: 'When', es: 'Cuándo' },
-    value: { en: 'Saturday 13 March · from 20:00', es: 'Sábado 13 de marzo · desde las 20' },
+    value: { en: 'Saturday 13 March · time to be confirmed', es: 'Sábado 13 de marzo · horario a confirmar' },
   },
   {
     icon: 'pin',
     label: { en: 'Where', es: 'Dónde' },
-    value: {
-      en: 'The quincho (barbecue house) at Estancia Los Álamos. A shuttle leaves the hotels at 19:30.',
-      es: 'El quincho de la Estancia Los Álamos. Hay traslado desde los hoteles a las 19:30.',
-    },
+    value: toBeConfirmed,
   },
   {
     icon: 'shirt',
     label: { en: 'Dress code', es: 'Vestimenta' },
-    value: {
-      en: 'Come as you are. Sunglasses optional.',
-      es: 'Vení como quieras. Los anteojos de sol, opcionales.',
-    },
+    value: toBeConfirmed,
   },
   {
     icon: 'dinner',
     label: { en: 'On the table', es: 'En la mesa' },
-    value: {
-      en: 'Asado, provoleta, salads and plenty of Malbec.',
-      es: 'Asado, provoleta, ensaladas y Malbec de sobra.',
-    },
+    value: toBeConfirmed,
   },
 ]

@@ -2,7 +2,7 @@ import { AnimatePresence, motion } from 'motion/react'
 import { useId, useRef, useState, type KeyboardEvent } from 'react'
 import { Icon } from '../components/Icon'
 import { Section } from '../components/Section'
-import { faqCategories, type Place, type Question } from '../content/faq'
+import { faqCategories, toBeConfirmed, type Place, type Question } from '../content/faq'
 import { faq } from '../content/ui'
 import { contactEmail, mapsUrl } from '../content/wedding'
 import { useLang } from '../i18n/LanguageContext'
@@ -129,6 +129,15 @@ function Questions({ items }: { items: Question[] }) {
 
 function Places({ items }: { items: Place[] }) {
   const { t } = useLang()
+  if (!items.length) {
+    return (
+      <ul className={styles.places}>
+        <li className={styles.place}>
+          <h3 className={styles.placeName}>{t(toBeConfirmed)}</h3>
+        </li>
+      </ul>
+    )
+  }
   return (
     <ul className={styles.places}>
       {items.map((place, i) => (

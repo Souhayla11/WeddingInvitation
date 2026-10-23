@@ -6,7 +6,7 @@
   border-radius: 24px;
   background: var(--paper);
   color: var(--ink);
-  box-shadow: 0 40px 80px -40px rgba(10, 2, 4, 0.7);
+  box-shadow: 0 32px 64px -36px rgba(74, 19, 32, 0.35);
 }
 
 .card::before {

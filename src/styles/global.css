@@ -1,12 +1,14 @@
 :root {
-  /* Palette */
-  --cream: #f6eee2;
-  --paper: #fbf7f0;
-  --cream-deep: #ede1cd;
+  /* Palette — same hues, tuned to design1/design2 watercolor washes */
+  --cream: #f0ede8;
+  --paper: #f9f7f4;
+  --cream-deep: #e6dfd6;
+  --wash: #eae7ec;
+  --wash-peach: #f3ebe4;
   --burgundy: #6b1e2e;
   --burgundy-deep: #4a1320;
   --ink: #3a1d23;
-  --ink-soft: #6c5156;
+  --ink-soft: #655258;
   --orange: #c8662d;
   --orange-ink: #a14a1c;
   --sage: #8d9c7b;
@@ -15,7 +17,12 @@
   --pink-ink: #a2525a;
   --blue: #7591ab;
   --blue-ink: #44627e;
-  --line: rgba(107, 30, 46, 0.16);
+  --line: rgba(107, 30, 46, 0.11);
+  --sketch: rgba(58, 29, 35, 0.22);
+  --hero-text-glow:
+    0 0 22px rgba(249, 247, 244, 0.95),
+    0 0 6px rgba(249, 247, 244, 0.85),
+    0 1px 1px rgba(249, 247, 244, 0.6);
 
   /* Type */
   --font-display: 'Bodoni Moda', 'Bodoni 72', Didot, Georgia, serif;
@@ -31,7 +38,7 @@
   /* Default accent; each section overrides these through data-accent. */
   --accent: var(--burgundy);
   --accent-ink: var(--burgundy);
-  --accent-soft: #efdcd9;
+  --accent-soft: #f0e4e2;
 
   color-scheme: light;
 }
@@ -39,27 +46,27 @@
 [data-accent='burgundy'] {
   --accent: var(--burgundy);
   --accent-ink: var(--burgundy);
-  --accent-soft: #efdcd9;
+  --accent-soft: #f0e4e2;
 }
 [data-accent='orange'] {
   --accent: var(--orange);
   --accent-ink: var(--orange-ink);
-  --accent-soft: #f5dfcb;
+  --accent-soft: #f6e8dc;
 }
 [data-accent='pink'] {
   --accent: var(--pink);
   --accent-ink: var(--pink-ink);
-  --accent-soft: #f6e0dc;
+  --accent-soft: #f5e4e1;
 }
 [data-accent='blue'] {
   --accent: var(--blue);
   --accent-ink: var(--blue-ink);
-  --accent-soft: #dfe6ec;
+  --accent-soft: #e4eaef;
 }
 [data-accent='sage'] {
   --accent: var(--sage);
   --accent-ink: var(--sage-ink);
-  --accent-soft: #e2e7d7;
+  --accent-soft: #e8ece2;
 }
 
 *,
@@ -77,7 +84,10 @@ html {
 body {
   margin: 0;
   min-height: 100vh;
-  background: var(--cream);
+  background:
+    radial-gradient(ellipse 120% 80% at 50% -20%, var(--wash) 0%, transparent 55%),
+    linear-gradient(180deg, var(--wash-peach) 0%, var(--cream) 42%, var(--paper) 100%);
+  background-attachment: fixed;
   color: var(--ink);
   font-family: var(--font-body);
   font-size: 1.0625rem;
@@ -105,15 +115,32 @@ body {
   background: linear-gradient(
     90deg,
     transparent,
-    color-mix(in srgb, var(--burgundy) 22%, transparent),
+    color-mix(in srgb, var(--pink) 55%, transparent),
     transparent
   );
-  opacity: 0.85;
+  opacity: 0.7;
   pointer-events: none;
 }
 
 .site-main > section:not(#top):first-of-type::before {
   display: none;
+}
+
+/* Overlap wedding details into the hero fade so backgrounds blend */
+.site-main > #details {
+  --hero-fade-overlap: clamp(64px, 11vh, 112px);
+  margin-top: calc(-1 * var(--hero-fade-overlap));
+  padding-top: calc(clamp(80px, 12vw, 150px) + var(--hero-fade-overlap));
+  /* Transparent top lets the hero fade show through the overlap instead of a hard edge */
+  background:
+    radial-gradient(ellipse 85% 40% at 80% 22%, color-mix(in srgb, var(--pink) 14%, transparent), transparent 65%),
+    linear-gradient(
+      180deg,
+      transparent 0,
+      var(--wash) var(--hero-fade-overlap),
+      var(--paper) 45%,
+      var(--cream) 100%
+    );
 }
 
 /* Soft paper grain over the whole page */
@@ -123,9 +150,9 @@ body::after {
   inset: 0;
   z-index: 100;
   pointer-events: none;
-  opacity: 0.32;
+  opacity: 0.22;
   mix-blend-mode: multiply;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .42 0 0 0 0 .3 0 0 0 0 .25 0 0 0 .14 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .38 0 0 0 0 .34 0 0 0 0 .36 0 0 0 .1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
 img,
@@ -283,11 +310,11 @@ button {
 .btn-primary {
   background: var(--burgundy);
   color: var(--paper);
-  box-shadow: 0 12px 24px -14px rgba(74, 19, 32, 0.7);
+  box-shadow: 0 10px 28px -16px rgba(74, 19, 32, 0.45);
 }
 .btn-primary:hover {
   background: var(--burgundy-deep);
-  box-shadow: 0 16px 28px -14px rgba(74, 19, 32, 0.8);
+  box-shadow: 0 14px 32px -16px rgba(74, 19, 32, 0.55);
 }
 
 .btn-outline {

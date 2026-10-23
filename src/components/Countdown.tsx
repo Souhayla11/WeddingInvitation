@@ -6,14 +6,38 @@ import styles from './Countdown.module.css'
 
 const units = ['days', 'hours', 'minutes', 'seconds'] as const
 
-export function Countdown({ target, light }: { target: string; light?: boolean }) {
+export function Countdown({
+  target,
+  light,
+  textGlow,
+  heroGlass,
+}: {
+  target: string
+  light?: boolean
+  textGlow?: boolean
+  /** Frosted chip on hero — burgundy digits (not white `light` mode) */
+  heroGlass?: boolean
+}) {
   const { t } = useLang()
   const remaining = useCountdown(target)
 
-  if (remaining.done) return <p className={styles.done}>{t(hero.married)}</p>
+  if (remaining.done) {
+    return (
+      <p className={styles.done} data-text-glow={textGlow || undefined}>
+        {t(hero.married)}
+      </p>
+    )
+  }
 
   return (
-    <div className={styles.countdown} data-light={light || undefined} role="timer" aria-label={t(hero.countdownLabel)}>
+    <div
+      className={styles.countdown}
+      data-light={light || undefined}
+      data-text-glow={textGlow || undefined}
+      data-hero-glass={heroGlass || undefined}
+      role="timer"
+      aria-label={t(hero.countdownLabel)}
+    >
       {units.map((unit) => {
         const value = remaining[unit]
         return (

@@ -1,10 +1,9 @@
 import { motion, type Variants } from 'motion/react'
 import { Countdown } from '../components/Countdown'
 import { Icon } from '../components/Icon'
-import { HeroSunset } from '../components/HeroSunset'
-import { SectionFlowers } from '../components/SectionFlowers'
+import { HeroBackground } from '../components/HeroBackground'
 import { hero } from '../content/ui'
-import { couple, location, timeZone, venues, weddingStart } from '../content/wedding'
+import { couple, timeZone, weddingStart } from '../content/wedding'
 import { useLang } from '../i18n/LanguageContext'
 import { ease } from '../lib/motion'
 import { capitalize } from '../lib/text'
@@ -37,8 +36,7 @@ export function Hero({ ready }: { ready: boolean }) {
 
   return (
     <section id="top" className={styles.hero} aria-labelledby="hero-title">
-      <HeroSunset play={ready} />
-      <SectionFlowers zone="hero" />
+      <HeroBackground play={ready} />
 
       <motion.div className={styles.inner} variants={container} initial="hidden" animate={ready ? 'show' : 'hidden'}>
         <motion.p className={styles.eyebrow} variants={fadeUp}>
@@ -60,12 +58,9 @@ export function Hero({ ready }: { ready: boolean }) {
         <motion.p className={styles.date} variants={fadeUp}>
           {longDate}
         </motion.p>
-        <motion.p className={styles.place} variants={fadeUp}>
-          {venues[1].name} · {t(location)}
-        </motion.p>
 
         <motion.div className={styles.countdown} variants={fadeUp}>
-          <Countdown target={weddingStart} light />
+          <Countdown target={weddingStart} heroGlass />
         </motion.div>
 
         <motion.div className={styles.actions} variants={fadeUp}>

@@ -37,10 +37,12 @@ export function Recovery() {
 
           <motion.div className={styles.footer} {...reveal(0.2)}>
             <p className={styles.note}>{t(recovery.note)}</p>
-            <a className="btn btn-outline" href={mapsUrl(recoveryMapQuery)} target="_blank" rel="noreferrer">
-              <Icon name="pin" />
-              {t(recovery.directions)}
-            </a>
+            {recoveryMapQuery && (
+              <a className="btn btn-outline" href={mapsUrl(recoveryMapQuery)} target="_blank" rel="noreferrer">
+                <Icon name="pin" />
+                {t(recovery.directions)}
+              </a>
+            )}
           </motion.div>
         </div>
       </div>

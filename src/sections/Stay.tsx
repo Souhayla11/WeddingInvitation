@@ -1,9 +1,9 @@
 import { motion } from 'motion/react'
-import { Icon } from '../components/Icon'
+import { Icon, type IconName } from '../components/Icon'
 import { Section } from '../components/Section'
-import { hotels, shuttle, travel } from '../content/stay'
+import { gettingAround, gettingThere, stayAreas, type TravelOption } from '../content/stay'
 import { stay } from '../content/ui'
-import { mapsUrl } from '../content/wedding'
+import type { Text } from '../i18n/types'
 import { useLang } from '../i18n/LanguageContext'
 import { reveal } from '../lib/motion'
 import styles from './Stay.module.css'
@@ -18,53 +18,34 @@ export function Stay() {
         {t(stay.hotelsTitle)}
       </motion.h3>
       <ul className={styles.hotels}>
-        {hotels.map((hotel, i) => (
-          <motion.li key={hotel.name} className={styles.hotel} {...reveal(i * 0.1, 36)}>
-            <div className={styles.hotelTop}>
-              <span className={styles.tag}>{t(hotel.tag)}</span>
-              <span className={styles.price}>
-                {hotel.price}
-                <span aria-hidden="true">{'$$$'.slice(hotel.price.length)}</span>
-              </span>
-            </div>
-            <h4 className={styles.hotelName}>{hotel.name}</h4>
-            <p className={styles.distance}>{t(hotel.distance)}</p>
-            <p className={styles.hotelText}>{t(hotel.text)}</p>
-            <div className={styles.hotelFoot}>
-              {hotel.code && (
-                <p className={styles.code}>
-                  <span>{t(stay.code)}</span>
-                  <strong>{hotel.code}</strong>
-                </p>
-              )}
-              <a className="text-link" href={mapsUrl(hotel.mapQuery)} target="_blank" rel="noreferrer">
-                {t(stay.map)}
-                <Icon name="external" />
-              </a>
-            </div>
+        {stayAreas.map((area, i) => (
+          <motion.li key={area.name} className={styles.hotel} {...reveal(i * 0.1, 36)}>
+            <h4 className={styles.hotelName}>{area.name}</h4>
+            {area.options && (
+              <ul className={styles.options}>
+                {area.options.map((option) => (
+                  <li key={option.name} className={styles.option}>
+                    <div>
+                      <p className={styles.optionName}>{option.name}</p>
+                      {option.note && <p className={styles.optionNote}>{t(option.note)}</p>}
+                    </div>
+                    <a className="text-link" href={option.href} target="_blank" rel="noreferrer">
+                      {t(option.linkLabel)}
+                      <Icon name="external" />
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            )}
+            <p className={styles.hotelText}>{t(area.text)}</p>
           </motion.li>
         ))}
       </ul>
 
       <div className={styles.transport}>
-        <div>
-          <motion.h3 className={styles.subhead} {...reveal()}>
-            <Icon name="compass" />
-            {t(stay.travelTitle)}
-          </motion.h3>
-          <ul className={styles.travel}>
-            {travel.map((option, i) => (
-              <motion.li key={option.icon} className={styles.travelItem} {...reveal(i * 0.08)}>
-                <span className={styles.travelIcon}>
-                  <Icon name={option.icon} />
-                </span>
-                <div>
-                  <h4 className={styles.travelTitle}>{t(option.title)}</h4>
-                  <p className={styles.travelText}>{t(option.text)}</p>
-                </div>
-              </motion.li>
-            ))}
-          </ul>
+        <div className={styles.travelGroups}>
+          <TravelGroup icon="plane" title={stay.thereTitle} items={gettingThere} />
+          <TravelGroup icon="compass" title={stay.aroundTitle} items={gettingAround} />
         </div>
 
         <motion.div className={styles.ticket} {...reveal(0.1, 40)}>
@@ -76,27 +57,33 @@ export function Stay() {
             </div>
           </div>
           <p className={styles.ticketText}>{t(stay.shuttleText)}</p>
-          <div className={styles.perforation} aria-hidden="true" />
-          <table className={styles.timetable}>
-            <thead>
-              <tr>
-                <th scope="col">{t(stay.departs)}</th>
-                <th scope="col">{t(stay.route)}</th>
-              </tr>
-            </thead>
-            <tbody>
-              {shuttle.map((run) => (
-                <tr key={run.time}>
-                  <td className={styles.runTime}>{run.time}</td>
-                  <td>
-                    {t(run.from)} <Icon name="arrow" className={styles.runArrow} /> {t(run.to)}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
         </motion.div>
       </div>
     </Section>
+  )
+}
+
+function TravelGroup({ icon, title, items }: { icon: IconName; title: Text; items: TravelOption[] }) {
+  const { t } = useLang()
+  return (
+    <div>
+      <motion.h3 className={styles.subhead} {...reveal()}>
+        <Icon name={icon} />
+        {t(title)}
+      </motion.h3>
+      <ul className={styles.travel}>
+        {items.map((option, i) => (
+          <motion.li key={option.icon} className={styles.travelItem} {...reveal(i * 0.08)}>
+            <span className={styles.travelIcon}>
+              <Icon name={option.icon} />
+            </span>
+            <div>
+              <h4 className={styles.travelTitle}>{t(option.title)}</h4>
+              <p className={styles.travelText}>{t(option.text)}</p>
+            </div>
+          </motion.li>
+        ))}
+      </ul>
+    </div>
   )
 }

@@ -36,45 +36,34 @@
   box-shadow: 0 30px 50px -36px rgba(68, 98, 126, 0.55);
 }
 
-.hotelTop {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-}
-
-.tag {
-  padding: 5px 12px;
-  border-radius: 999px;
-  background: var(--accent-soft);
-  color: var(--blue-ink);
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
-
-.price {
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  color: var(--blue-ink);
-}
-
-.price span {
-  opacity: 0.25;
-}
-
 .hotelName {
-  margin-top: 22px;
   font-size: 1.6rem;
   color: var(--burgundy);
 }
 
-.distance {
-  margin-top: 6px;
+.options {
+  margin-top: 18px;
+}
+
+.option {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 6px 16px;
+  padding: 14px 0;
+  border-top: 1px solid var(--line);
+}
+
+.optionName {
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.optionNote {
+  margin-top: 2px;
   color: var(--blue-ink);
   font-size: 0.9rem;
-  font-weight: 500;
 }
 
 .hotelText {
@@ -83,37 +72,10 @@
   font-size: 0.96rem;
 }
 
-.hotelFoot {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 14px;
-  margin-top: auto;
-  padding-top: 24px;
-}
-
-.code {
-  display: flex;
-  flex-direction: column;
-  padding: 6px 12px;
-  border: 1px dashed color-mix(in srgb, var(--blue-ink) 50%, transparent);
-  border-radius: 8px;
-  line-height: 1.3;
-}
-
-.code span {
-  font-size: 0.62rem;
-  font-weight: 600;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--ink-soft);
-}
-
-.code strong {
-  font-size: 0.9rem;
-  letter-spacing: 0.08em;
-  color: var(--blue-ink);
+.options + .hotelText {
+  margin-top: 0;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
 }
 
 /* Transport */
@@ -123,6 +85,12 @@
   gap: clamp(40px, 6vw, 80px);
   align-items: start;
   margin-top: clamp(72px, 9vw, 112px);
+}
+
+.travelGroups {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(40px, 5vw, 56px);
 }
 
 .travel {
@@ -168,9 +136,8 @@
   font-size: 0.97rem;
 }
 
-/* The shuttle timetable, styled as a ticket */
+/* The shuttle note, styled as a ticket */
 .ticket {
-  --notch: 14px;
   position: relative;
   padding: 32px clamp(24px, 3vw, 36px);
   border-radius: 20px;
@@ -215,79 +182,8 @@
   font-size: 0.95rem;
 }
 
-.perforation {
-  position: relative;
-  height: 1px;
-  margin: 26px calc(-1 * clamp(24px, 3vw, 36px));
-  border-top: 2px dashed rgba(251, 247, 240, 0.28);
-}
-
-.perforation::before,
-.perforation::after {
-  content: '';
-  position: absolute;
-  top: calc(-1 * var(--notch) - 1px);
-  width: calc(var(--notch) * 2);
-  height: calc(var(--notch) * 2);
-  border-radius: 50%;
-  background: var(--paper);
-}
-
-.perforation::before {
-  left: calc(-1 * var(--notch));
-}
-
-.perforation::after {
-  right: calc(-1 * var(--notch));
-}
-
-.timetable {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 0.95rem;
-}
-
-.timetable th {
-  padding-bottom: 10px;
-  text-align: left;
-  font-size: 0.65rem;
-  font-weight: 600;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: rgba(251, 247, 240, 0.6);
-}
-
-.timetable td {
-  padding: 10px 0;
-  border-top: 1px solid rgba(251, 247, 240, 0.12);
-  vertical-align: baseline;
-}
-
-.runTime {
-  width: 5.5em;
-  font-family: var(--font-display);
-  font-style: italic;
-  font-size: 1.35rem;
-  color: var(--pink);
-}
-
-.runArrow {
-  display: inline-block;
-  width: 14px;
-  height: 14px;
-  margin: 0 4px;
-  vertical-align: -1px;
-  opacity: 0.6;
-}
-
 @media (max-width: 860px) {
   .transport {
     grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 480px) {
-  .runTime {
-    width: 4em;
   }
 }

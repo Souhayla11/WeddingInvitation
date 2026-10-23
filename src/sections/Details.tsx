@@ -18,21 +18,21 @@ export function Details() {
         start: weddingStart,
         end: weddingEnd,
         location: `${venues[0].name}, ${t(venues[0].address)}`,
-        description: venues.map((v) => `${v.time} ${t(v.kind)} — ${v.name}`).join('\n'),
+        description: venues.map((v) => `${v.time ?? t(details.toFollow)} ${t(v.kind)} — ${v.name}`).join('\n'),
       },
       'daniella-jose-wedding.ics',
     )
 
   return (
-    <Section id="details">
+    <Section id="details" tone="paper">
       <div className={styles.venues}>
         {venues.map((venue, i) => (
           <motion.article key={venue.name} className={styles.venue} {...reveal(i * 0.12, 40)} {...hoverLift}>
             <p className={styles.kind}>{t(venue.kind)}</p>
-            <p className={styles.time}>{venue.time}</p>
+            <p className={styles.time}>{venue.time ?? t(details.toFollow)}</p>
             <h3 className={styles.name}>{venue.name}</h3>
             <p className={styles.address}>{t(venue.address)}</p>
-            <p className={styles.note}>{t(venue.note)}</p>
+            {venue.note ? <p className={styles.note}>{t(venue.note)}</p> : <span className={styles.noteGap} />}
             <a className="text-link" href={mapsUrl(venue.mapQuery)} target="_blank" rel="noreferrer">
               {t(details.directions)}
               <Icon name="external" />
@@ -59,6 +59,10 @@ export function Details() {
           {t(details.calendar)}
         </button>
       </motion.div>
+
+      <motion.p className={styles.closing} {...reveal()}>
+        {t(details.closing)}
+      </motion.p>
     </Section>
   )
 }

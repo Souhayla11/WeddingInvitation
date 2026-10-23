@@ -1,4 +1,5 @@
 import { motion } from 'motion/react'
+import design1Art from '../../designs/design1.jpeg'
 import { Seal } from '../components/Seal'
 import { footer } from '../content/ui'
 import { contactEmail, couple, dateShort, hashtag, location } from '../content/wedding'
@@ -11,6 +12,7 @@ export function Footer() {
   const { t } = useLang()
   return (
     <footer className={styles.footer}>
+      <img className={styles.designBg} src={design1Art} alt="" aria-hidden="true" />
       <SectionFlowers zone="footer" />
       <motion.div className={styles.inner} {...reveal()}>
         <Seal size={72} />
