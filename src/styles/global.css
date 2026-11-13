@@ -25,9 +25,9 @@
     0 1px 1px rgba(249, 247, 244, 0.6);
 
   /* Type */
-  --font-display: 'Bodoni Moda', 'Bodoni 72', Didot, Georgia, serif;
+  --font-display: 'Alice', Georgia, serif;
   --font-script: 'Pinyon Script', 'Snell Roundhand', cursive;
-  --font-body: 'Albert Sans', 'Helvetica Neue', Arial, sans-serif;
+  --font-body: 'Alice', Georgia, serif;
 
   /* Layout */
   --nav-h: 68px;

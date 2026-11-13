@@ -1,36 +1,41 @@
 import type { IconName } from '../components/Icon'
 import type { Text } from '../i18n/types'
 
-/** Set once the venue is confirmed; the directions button stays hidden until then. */
-export const recoveryMapQuery: string | null = null
-
-const toBeConfirmed: Text = { en: 'To be confirmed', es: 'A confirmar' }
+export const recoveryMapQuery = 'Agua Del Este, Paraje Entre Rios, Rio Negro, Argentina'
 
 export interface RecoveryFact {
   icon: IconName
   label: Text
   value: Text
+  mapQuery?: string
 }
 
 export const recoveryFacts: RecoveryFact[] = [
   {
     icon: 'calendar',
     label: { en: 'When', es: 'Cuándo' },
-    value: { en: 'Saturday 13 March · time to be confirmed', es: 'Sábado 13 de marzo · horario a confirmar' },
+    value: { en: 'Saturday 13 March · At 18:00', es: 'Sábado 13 de marzo · a las 18:00' },
   },
   {
     icon: 'pin',
     label: { en: 'Where', es: 'Dónde' },
-    value: toBeConfirmed,
+    value: {
+      en: 'Agua Del Este, Paraje Entre Ríos',
+      es: 'Agua Del Este, Paraje Entre Ríos',
+    },
+    mapQuery: recoveryMapQuery,
   },
   {
     icon: 'shirt',
     label: { en: 'Dress code', es: 'Vestimenta' },
-    value: toBeConfirmed,
+    value: { en: 'Smart casual.', es: 'Smart casual.' },
   },
   {
     icon: 'dinner',
-    label: { en: 'On the table', es: 'En la mesa' },
-    value: toBeConfirmed,
+    label: { en: 'Dinner', es: 'Cena' },
+    value: {
+      en: 'A relaxed dinner with drinks.',
+      es: 'Cena tranquila con bebidas.',
+    },
   },
 ]

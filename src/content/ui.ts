@@ -57,7 +57,7 @@ interface SectionCopy {
 export const sectionCopy: Record<SectionId, SectionCopy> = {
   details: {
     eyebrow: { en: 'Friday 12 March 2027', es: 'Viernes 12 de marzo de 2027' },
-    title: { en: 'Wedding *details*', es: 'Detalles de la *boda*' },
+    title: { en: 'Wedding *Details*', es: 'Detalles de la *boda*' },
     intro: {
       en: 'We are delighted to formally invite you to our wedding.\nFriday, 12th of March 2027',
       es: 'Tenemos el agrado de invitarte formalmente a nuestra boda.\nViernes 12 de marzo de 2027',
@@ -65,7 +65,7 @@ export const sectionCopy: Record<SectionId, SectionCopy> = {
   },
   schedule: {
     eyebrow: { en: 'From 14:00 into the night', es: 'Desde las 14:00 hasta la noche' },
-    title: { en: 'The day, *hour by hour*', es: 'El día, *hora a hora*' },
+    title: { en: 'The Day, *hour by hour*', es: 'El día, *hora a hora*' },
     intro: {
       en: 'Here is how the day will unfold. We can’t wait to celebrate with you.',
       es: 'Así va a ser el día. ¡Tenemos muchas ganas de celebrarlo con ustedes!',
@@ -73,7 +73,7 @@ export const sectionCopy: Record<SectionId, SectionCopy> = {
   },
   recovery: {
     eyebrow: { en: 'Saturday 13 March', es: 'Sábado 13 de marzo' },
-    title: { en: 'Recovery *dinner*', es: 'Cena del *día después*' },
+    title: { en: 'Recovery *Dinner*', es: 'Cena del *día después*' },
     intro: {
       en: 'Join us the next evening!',
       es: '¡Acompañanos la noche siguiente!',
@@ -81,22 +81,14 @@ export const sectionCopy: Record<SectionId, SectionCopy> = {
   },
   stay: {
     eyebrow: { en: 'Bariloche & El Bolsón', es: 'Bariloche y El Bolsón' },
-    title: { en: 'Accommodation *& transport*', es: 'Alojamiento *y traslados*' },
+    title: { en: 'Accommodation *& Transport*', es: 'Alojamiento *y traslados*' },
     intro: {
       en: 'A few suggestions for where to stay and how to get around.',
       es: 'Algunas sugerencias sobre dónde alojarte y cómo moverte.',
     },
   },
-  faq: {
-    eyebrow: { en: 'Good to know', es: 'Para que no te falte nada' },
-    title: { en: 'Questions *& local tips*', es: 'Preguntas *y consejos*' },
-    intro: {
-      en: 'Practical answers, plus our favourite places to visit, get ready and eat.',
-      es: 'Respuestas prácticas y nuestros lugares favoritos para pasear, arreglarse y comer.',
-    },
-  },
   rsvp: {
-    eyebrow: { en: 'Please reply by 15 January 2027', es: 'Confirmá antes del 15 de enero de 2027' },
+    eyebrow: { en: 'Please reply by 31 January 2027', es: 'Confirmá antes del 31 de enero de 2027' },
     title: { en: 'Will you *join us*?', es: '¿Nos *acompañás*?' },
     intro: {
       en: 'One reply per invitation is perfect. You can send another if your plans change.',
@@ -137,18 +129,9 @@ export const stay = {
   shuttleDate: { en: 'Fri 12 Mar', es: 'Vie 12 mar' },
 } satisfies Record<string, Text>
 
-export const faq = {
-  tabsLabel: { en: 'FAQ topics', es: 'Temas' },
-  map: { en: 'Map', es: 'Mapa' },
-  more: {
-    en: 'Can’t find what you need? Write to us at',
-    es: '¿No encontrás lo que buscás? Escribinos a',
-  },
-} satisfies Record<string, Text>
-
 export const rsvp = {
   name: { en: 'Full name', es: 'Nombre y apellido' },
-  namePlaceholder: { en: 'As it appears on your invitation', es: 'Como figura en tu invitación' },
+  namePlaceholder: { en: 'Your first and last name', es: 'Tu nombre y apellido' },
   attending: { en: 'Can you come?', es: '¿Podés venir?' },
   yes: { en: 'Joyfully accepts', es: 'Acepta con alegría' },
   yesSub: { en: 'See you in March', es: 'Nos vemos en marzo' },
@@ -187,7 +170,6 @@ export const rsvp = {
 } satisfies Record<string, Text>
 
 export const footer = {
-  questions: { en: 'Questions? Write to us at', es: '¿Dudas? Escribinos a' },
   top: { en: 'Back to the top', es: 'Volver arriba' },
   love: { en: 'With love', es: 'Con cariño' },
 } satisfies Record<string, Text>

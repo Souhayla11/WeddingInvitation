@@ -1,11 +1,13 @@
 import { motion } from 'motion/react'
-import design1Art from '../../designs/design1.jpeg'
+import { useMemo } from 'react'
+import design1Art from '../../designs/ilustracion rsvp.png'
 import { design1ObjectPosition, templateDecor, type DecorZone } from '../content/templateDecor'
+import { decorRevealDelay, scatterDecorMarks } from '../lib/decorScatter'
 import { WatercolorFlower } from './Flower'
 import styles from './SectionFlowers.module.css'
 
 export function SectionFlowers({ zone }: { zone: DecorZone }) {
-  const items = templateDecor[zone]
+  const items = useMemo(() => scatterDecorMarks(zone, templateDecor[zone]), [zone])
   if (!items.length) return null
 
   return (
@@ -27,7 +29,7 @@ export function SectionFlowers({ zone }: { zone: DecorZone }) {
           initial={{ opacity: 0, scale: (item.scale ?? 1) * 0.88 }}
           whileInView={{ opacity: item.opacity ?? 0.35, scale: item.scale ?? 1 }}
           viewport={{ once: true, margin: '-4% 0px -4% 0px' }}
-          transition={{ duration: 0.9, delay: i * 0.07, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.9, delay: decorRevealDelay(zone, i), ease: [0.22, 1, 0.36, 1] }}
         >
           {item.kind === 'design1' ? (
             <img

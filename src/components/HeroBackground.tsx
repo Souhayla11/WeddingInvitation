@@ -1,8 +1,8 @@
 import { motion } from 'motion/react'
-import heroArt from '../../designs/design2.jpeg'
+import heroArt from '../../designs/ILUSTRACION INVITACION.png'
 import styles from './HeroBackground.module.css'
 
-/** Full-bleed hero art from designs/design2.jpeg */
+/** Full-bleed hero art from designs/ILUSTRACION INVITACION.png */
 export function HeroBackground({ play }: { play: boolean }) {
   return (
     <div className={styles.wrap} aria-hidden="true">

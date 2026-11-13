@@ -63,6 +63,27 @@
   color: var(--ink);
 }
 
+.factValueRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.5em 0.75em;
+}
+
+.factDirections {
+  display: inline-flex;
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  white-space: nowrap;
+}
+
+.factDirections svg {
+  width: 0.95em;
+  height: 0.95em;
+}
+
 .footer {
   display: flex;
   flex-wrap: wrap;

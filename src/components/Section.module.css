@@ -68,6 +68,18 @@
 .dark .eyebrow {
   color: var(--pink);
 }
+
+#rsvp .eyebrow {
+  padding: 12px 22px;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--paper) 40%, transparent);
+  background: color-mix(in srgb, var(--paper) 14%, transparent);
+  box-shadow: 0 0 0 1px rgba(232, 180, 174, 0.25);
+  color: var(--paper);
+  font-size: clamp(0.8rem, 2vw, 0.92rem);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+}
 .dark .sprig {
   color: var(--pink);
 }

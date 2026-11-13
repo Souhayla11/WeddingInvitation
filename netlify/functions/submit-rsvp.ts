@@ -1,7 +1,8 @@
 import type { Handler, HandlerEvent } from '@netlify/functions'
 import { JWT } from 'google-auth-library'
 
-const MAX_GUESTS = 4
+/** Upper bound to block abuse; the form has no lower cap on the client. */
+const MAX_GUESTS = 99
 const RSVP_TIMEZONE = 'America/Argentina/Buenos_Aires'
 
 /**

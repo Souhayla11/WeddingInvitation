@@ -1,6 +1,6 @@
 import type { Text } from '../i18n/types'
 
-export type SectionId = 'details' | 'schedule' | 'recovery' | 'stay' | 'faq' | 'rsvp'
+export type SectionId = 'details' | 'schedule' | 'recovery' | 'stay' | 'rsvp'
 
 /** Each section owns one colour from the palette; the menu uses it as a legend. */
 export type Accent = 'burgundy' | 'orange' | 'pink' | 'blue' | 'sage'
@@ -30,7 +30,7 @@ export const sections: SectionMeta[] = [
   {
     id: 'recovery',
     accent: 'pink',
-    label: { en: 'Recovery dinner', es: 'Día después' },
+    label: { en: 'Recovery Dinner', es: 'Día después' },
     hint: { en: 'Saturday evening, casual', es: 'Sábado a la noche, informal' },
   },
   {
@@ -40,16 +40,10 @@ export const sections: SectionMeta[] = [
     hint: { en: 'Hotels, shuttle, getting here', es: 'Hoteles, traslados y cómo llegar' },
   },
   {
-    id: 'faq',
-    accent: 'sage',
-    label: { en: 'FAQs', es: 'Preguntas' },
-    hint: { en: 'Things to do, salons, where to eat', es: 'Paseos, peluquerías, dónde comer' },
-  },
-  {
     id: 'rsvp',
     accent: 'burgundy',
     label: { en: 'RSVP', es: 'Confirmar' },
-    hint: { en: 'Reply by 15 January', es: 'Antes del 15 de enero' },
+    hint: { en: 'Reply by 31 January', es: 'Antes del 31 de enero' },
   },
 ]
 

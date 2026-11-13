@@ -1,6 +1,6 @@
 import type { Accent } from './sections'
 
-export type DecorZone = 'hero' | 'footer' | 'details' | 'schedule' | 'recovery' | 'stay' | 'faq' | 'rsvp'
+export type DecorZone = 'hero' | 'footer' | 'details' | 'schedule' | 'recovery' | 'stay' | 'rsvp'
 
 /** Crop focus within design1.jpeg — used only for footer background framing */
 export type Design1Focus = 'cake' | 'table' | 'floral' | 'wash'
@@ -68,12 +68,6 @@ export const templateDecor: Record<DecorZone, DecorMark[]> = {
     { kind: 'watercolor', variant: 'daisy', tone: 'sage', bottom: '18%', right: '4%', rotate: 8, scale: 0.86, opacity: 0.38 },
     { kind: 'watercolor', variant: 'sketchBloom', tone: 'blue', top: '8%', right: '5%', rotate: 10, scale: 1, opacity: 0.6 },
     { kind: 'watercolor', variant: 'sketchSprig', tone: 'sage', bottom: '8%', left: '6%', rotate: 12, scale: 0.9, opacity: 0.55 },
-  ],
-  faq: [
-    { kind: 'watercolor', variant: 'spray', tone: 'sage', top: '14%', left: '4%', rotate: 16, scale: 0.9, opacity: 0.45 },
-    { kind: 'watercolor', variant: 'peony', tone: 'orange', bottom: '12%', left: '2%', rotate: -12, scale: 0.82, opacity: 0.38 },
-    { kind: 'watercolor', variant: 'sketchRose', tone: 'sage', top: '10%', right: '4%', rotate: 8, scale: 1, opacity: 0.65 },
-    { kind: 'watercolor', variant: 'sketchBloom', tone: 'pink', bottom: '22%', right: '5%', rotate: -16, scale: 0.9, opacity: 0.6 },
   ],
   rsvp: [
     { kind: 'watercolor', variant: 'daisy', tone: 'cream', top: '12%', left: '3%', rotate: -18, scale: 0.75, opacity: 0.35 },

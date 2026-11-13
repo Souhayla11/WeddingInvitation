@@ -53,16 +53,16 @@ export function Details() {
         ))}
       </ul>
 
-      <motion.div className={styles.calendar} {...reveal()}>
+      <motion.p className={styles.closing} {...reveal()}>
+        {t(details.closing)}
+      </motion.p>
+
+      <motion.div className={styles.calendar} {...reveal(0.08)}>
         <button type="button" className="btn btn-outline" onClick={addToCalendar}>
           <Icon name="calendar" />
           {t(details.calendar)}
         </button>
       </motion.div>
-
-      <motion.p className={styles.closing} {...reveal()}>
-        {t(details.closing)}
-      </motion.p>
     </Section>
   )
 }

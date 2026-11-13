@@ -1,5 +1,5 @@
 import { motion, type Variants } from 'motion/react'
-import heroArt from '../../designs/design2.jpeg'
+import heroArt from '../../designs/ILUSTRACION INVITACION.png'
 import { Countdown } from '../components/Countdown'
 import { Icon } from '../components/Icon'
 import { HeroBackground } from '../components/HeroBackground'

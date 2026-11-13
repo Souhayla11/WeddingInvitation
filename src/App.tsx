@@ -5,7 +5,6 @@ import { Nav } from './components/Nav'
 import { nav } from './content/ui'
 import { useLang } from './i18n/LanguageContext'
 import { Details } from './sections/Details'
-import { Faq } from './sections/Faq'
 import { Footer } from './sections/Footer'
 import { Hero } from './sections/Hero'
 import { Recovery } from './sections/Recovery'
@@ -65,7 +64,6 @@ export default function App() {
           <Schedule />
           <Recovery />
           <Stay />
-          <Faq />
           <Rsvp />
         </main>
         <Footer />

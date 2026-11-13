@@ -14,11 +14,9 @@ export const weddingEnd = '2027-03-13T05:00:00-03:00'
 export const timeZone = 'America/Argentina/Buenos_Aires'
 export const dateShort = '12 · 03 · 2027'
 
-export const rsvpDeadline: Text = { en: '15 January 2027', es: '15 de enero de 2027' }
+export const rsvpDeadline: Text = { en: '31 January 2027', es: '31 de enero de 2027' }
 export const location: Text = { en: 'Argentina', es: 'Argentina' }
 export const hashtag = '#DaniellaYJose'
-export const contactEmail = 'daniella.jose@example.com'
-
 export interface Venue {
   kind: Text
   /** Omitted when the venue simply follows the previous one. */

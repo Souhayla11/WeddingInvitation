@@ -18,12 +18,12 @@ export const schedule: ScheduleItem[] = [
   {
     time: '16:00',
     icon: 'glass',
-    title: { en: 'Cocktails and nibbles', es: 'Cóctel y bocaditos' },
+    title: { en: 'Cocktails and Nibbles', es: 'Cóctel y bocaditos' },
   },
   {
     time: '19:30',
     icon: 'dinner',
-    title: { en: 'Dinner', es: 'Cena' },
+    title: { en: 'Reception', es: 'Recepción' },
   },
   {
     time: '21:30',

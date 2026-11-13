@@ -2,7 +2,7 @@ import { motion } from 'motion/react'
 import { Icon } from '../components/Icon'
 import { RecoveryAside } from '../components/RecoveryAside'
 import { Section } from '../components/Section'
-import { recoveryFacts, recoveryMapQuery } from '../content/recovery'
+import { recoveryFacts } from '../content/recovery'
 import { recovery } from '../content/ui'
 import { mapsUrl } from '../content/wedding'
 import { useLang } from '../i18n/LanguageContext'
@@ -30,19 +30,25 @@ export function Recovery() {
                   <Icon name={fact.icon} />
                 </motion.span>
                 <dt className={styles.factLabel}>{t(fact.label)}</dt>
-                <dd className={styles.factValue}>{t(fact.value)}</dd>
+                <dd className={styles.factValue}>
+                  {fact.mapQuery ? (
+                    <span className={styles.factValueRow}>
+                      <span>{t(fact.value)}</span>
+                      <a className={`text-link ${styles.factDirections}`} href={mapsUrl(fact.mapQuery)} target="_blank" rel="noreferrer">
+                        {t(recovery.directions)}
+                        <Icon name="external" />
+                      </a>
+                    </span>
+                  ) : (
+                    t(fact.value)
+                  )}
+                </dd>
               </motion.div>
             ))}
           </dl>
 
           <motion.div className={styles.footer} {...reveal(0.2)}>
             <p className={styles.note}>{t(recovery.note)}</p>
-            {recoveryMapQuery && (
-              <a className="btn btn-outline" href={mapsUrl(recoveryMapQuery)} target="_blank" rel="noreferrer">
-                <Icon name="pin" />
-                {t(recovery.directions)}
-              </a>
-            )}
           </motion.div>
         </div>
       </div>

@@ -1,6 +1,6 @@
 import { motion, useReducedMotion } from 'motion/react'
 import { useEffect, useRef, useState } from 'react'
-import design2Art from '../../designs/design2.jpeg'
+import cardArt from '../../designs/envelope-card-art.png'
 import { envelope } from '../content/ui'
 import { couple, dateShort } from '../content/wedding'
 import { useLang } from '../i18n/LanguageContext'
@@ -79,21 +79,21 @@ export function Envelope({ onOpen }: { onOpen: () => void }) {
 
           <motion.div
             className={styles.card}
-            animate={{ y: cardOut ? '-62%' : '0%' }}
+            animate={{ y: cardOut ? '-94%' : '0%' }}
             transition={{ duration: 1.1, ease }}
           >
-            <img className={styles.cardArt} src={design2Art} alt="" aria-hidden="true" />
             <span className={styles.cardLine}>{t(envelope.cardLine)}</span>
             <span className={styles.cardNames}>
               {couple.one} <i>&amp;</i> {couple.two}
             </span>
             <span className={styles.cardDate}>{dateShort}</span>
+            <img className={styles.cardArt} src={cardArt} alt="" aria-hidden="true" />
           </motion.div>
 
           <svg className={styles.pocket} viewBox="0 0 300 200" preserveAspectRatio="none" aria-hidden="true">
-            <path d="M0 0 L150 112 L0 200 Z" fill="#e9dbc3" />
-            <path d="M300 0 L150 112 L300 200 Z" fill="#e6d6bc" />
-            <path d="M0 200 L150 96 L300 200 Z" fill="#f1e6d3" />
+            <path d="M0 0 L150 112 L0 200 Z" fill="#f3f1ee" />
+            <path d="M300 0 L150 112 L300 200 Z" fill="#efedea" />
+            <path d="M0 200 L150 96 L300 200 Z" fill="#f9f8f6" />
             <path d="M0 200 L150 96 L300 200" fill="none" stroke="#6b1e2e" strokeOpacity="0.08" />
           </svg>
 

@@ -59,7 +59,7 @@ export function Nav() {
   }
 
   return (
-    <header className={styles.nav} data-solid={scrolled || menuOpen}>
+    <header className={styles.nav} data-solid={scrolled || menuOpen} data-menu={menuOpen}>
       <div className={styles.inner}>
         <a href="#top" className={styles.monogram} onClick={go('top')} aria-label={t(nav.home)}>
           {couple.initials[0]}
@@ -122,31 +122,33 @@ export function Nav() {
             exit={{ clipPath: 'inset(0 0 100% 0)' }}
             transition={{ duration: 0.55, ease }}
           >
-            <ul className={styles.sheetList}>
-              {sections.map((s, i) => (
-                <motion.li
-                  key={s.id}
-                  data-accent={s.accent}
-                  initial={{ opacity: 0, y: 18 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.12 + i * 0.05, ease }}
-                >
-                  <a href={`#${s.id}`} onClick={go(s.id)} className={styles.sheetLink} aria-current={active === s.id ? 'true' : undefined}>
-                    <span className={styles.sheetDot} aria-hidden="true" />
-                    <span className={styles.sheetLabel}>{t(s.label)}</span>
-                    <span className={styles.sheetHint}>{t(s.hint)}</span>
-                  </a>
-                </motion.li>
-              ))}
-            </ul>
-            <motion.p
-              className={styles.sheetFoot}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.5 }}
-            >
-              {dateShort} — {t(location)}
-            </motion.p>
+            <div className={styles.sheetBody}>
+              <ul className={styles.sheetList}>
+                {sections.map((s, i) => (
+                  <motion.li
+                    key={s.id}
+                    data-accent={s.accent}
+                    initial={{ opacity: 0, y: 18 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 0.12 + i * 0.05, ease }}
+                  >
+                    <a href={`#${s.id}`} onClick={go(s.id)} className={styles.sheetLink} aria-current={active === s.id ? 'true' : undefined}>
+                      <span className={styles.sheetDot} aria-hidden="true" />
+                      <span className={styles.sheetLabel}>{t(s.label)}</span>
+                      <span className={styles.sheetHint}>{t(s.hint)}</span>
+                    </a>
+                  </motion.li>
+                ))}
+              </ul>
+              <motion.p
+                className={styles.sheetFoot}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.5 }}
+              >
+                {dateShort} — {t(location)}
+              </motion.p>
+            </div>
           </motion.nav>
         )}
       </AnimatePresence>

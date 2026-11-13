@@ -30,8 +30,6 @@
     width: auto;
     object-fit: contain;
     opacity: 0.9;
-    /* Lifts the flat #e3e3e3 grey to white, which multiply then makes invisible */
-    filter: brightness(1.12);
     -webkit-mask-image:
       linear-gradient(90deg, transparent 0%, #000 12%, #000 88%, transparent 100%),
       linear-gradient(180deg, transparent 0%, #000 30%, #000 97%, transparent 100%);
@@ -95,18 +93,6 @@
   font-weight: 600;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-}
-
-.contact {
-  margin-top: 28px;
-  color: var(--ink-soft);
-  font-size: 0.95rem;
-}
-
-.contact a {
-  color: var(--burgundy);
-  font-weight: 600;
-  text-underline-offset: 3px;
 }
 
 .top {

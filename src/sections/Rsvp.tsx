@@ -30,7 +30,6 @@ const emptyForm: FormState = {
 }
 
 type ErrorKey = 'name' | 'attending'
-const MAX_GUESTS = 4
 
 function validate(form: FormState): ErrorKey[] {
   const errors: ErrorKey[] = []
@@ -236,8 +235,7 @@ export function Rsvp() {
                           <output aria-live="polite">{form.guests}</output>
                           <button
                             type="button"
-                            onClick={() => set('guests', Math.min(MAX_GUESTS, form.guests + 1))}
-                            disabled={form.guests >= MAX_GUESTS}
+                            onClick={() => set('guests', form.guests + 1)}
                             aria-label={t(rsvp.more)}
                           >
                             <Icon name="plus" />
