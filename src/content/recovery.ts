@@ -26,6 +26,14 @@ export const recoveryFacts: RecoveryFact[] = [
     mapQuery: recoveryMapQuery,
   },
   {
+    icon: 'car',
+    label: { en: 'Getting there', es: 'Cómo llegar' },
+    value: {
+      en: 'About a 1.5 hours drive from Bariloche — by car or bus.',
+      es: 'Un viaje de aproximadamente 1,5 horas desde Bariloche, en auto o micro.',
+    },
+  },
+  {
     icon: 'shirt',
     label: { en: 'Dress code', es: 'Vestimenta' },
     value: { en: 'Smart casual.', es: 'Smart casual.' },
