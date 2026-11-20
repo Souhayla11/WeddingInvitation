@@ -61,10 +61,25 @@
   transition: background-color 0.3s, color 0.3s, transform 0.4s var(--ease-out);
 }
 
+/* A second, finer ring, like a medallion */
+.node::after {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border: 1px solid color-mix(in srgb, var(--orange) 24%, transparent);
+  border-radius: 50%;
+  transition: inset 0.45s var(--ease-out), border-color 0.45s var(--ease-out);
+}
+
 .item:hover .node {
   background: var(--orange);
   color: var(--paper);
   transform: scale(1.06);
+}
+
+.item:hover .node::after {
+  inset: -9px;
+  border-color: color-mix(in srgb, var(--orange) 40%, transparent);
 }
 
 .title {

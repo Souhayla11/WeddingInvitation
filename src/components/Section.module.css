@@ -24,6 +24,16 @@
   color: var(--paper);
 }
 
+/* A fine inset keyline, like the border of a printed card */
+.dark::after {
+  content: '';
+  position: absolute;
+  inset: clamp(10px, 2vw, 22px);
+  border: 1px solid rgba(232, 180, 174, 0.2);
+  border-radius: clamp(10px, 1.6vw, 18px);
+  pointer-events: none;
+}
+
 .header {
   max-width: 680px;
   margin: 0 auto clamp(48px, 7vw, 80px);
@@ -55,6 +65,17 @@
 
 .title em {
   color: var(--accent-ink);
+}
+
+.ornament {
+  display: block;
+  margin: clamp(18px, 2.6vw, 26px) auto 0;
+  color: var(--accent);
+  opacity: 0.85;
+}
+
+.dark .ornament {
+  color: var(--pink);
 }
 
 .intro {

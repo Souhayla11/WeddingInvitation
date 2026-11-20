@@ -1,12 +1,12 @@
 export const ease = [0.22, 1, 0.36, 1] as const
 
 /** Props for a motion element that rises into place the first time it scrolls into view. */
-export function reveal(delay = 0, y = 28) {
+export function reveal(delay = 0, y = 22) {
   return {
     initial: { opacity: 0, y },
     whileInView: { opacity: 1, y: 0 },
-    viewport: { once: true, margin: '0px 0px -12% 0px' },
-    transition: { duration: 0.9, delay, ease },
+    viewport: { once: true, margin: '0px 0px -10% 0px' },
+    transition: { duration: 1.15, delay, ease },
   }
 }
 

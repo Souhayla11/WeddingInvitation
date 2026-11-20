@@ -36,6 +36,20 @@
   box-shadow: 0 32px 56px -32px rgba(74, 19, 32, 0.28);
 }
 
+/* A small gilt diamond at the crown of the arch */
+.venue::after {
+  content: '';
+  position: absolute;
+  top: 34px;
+  left: 50%;
+  width: 7px;
+  height: 7px;
+  background: var(--orange);
+  opacity: 0.6;
+  transform: translateX(-50%) rotate(45deg);
+  pointer-events: none;
+}
+
 .kind {
   color: var(--sage-ink);
   font-size: 0.75rem;
@@ -145,4 +159,14 @@
   color: var(--burgundy);
   text-align: center;
   text-wrap: balance;
+}
+
+.closing::before {
+  content: '';
+  display: block;
+  width: 120px;
+  height: 11px;
+  margin: 0 auto 22px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='11' viewBox='0 0 180 11' fill='none'%3E%3Cpath d='M0 5.5h74' stroke='%23c98f93' stroke-opacity='.7'/%3E%3Cpath d='M106 5.5h74' stroke='%23c98f93' stroke-opacity='.7'/%3E%3Cpath d='M90 1.2 94.3 5.5 90 9.8 85.7 5.5Z' fill='%23c8662d' fill-opacity='.75'/%3E%3C/svg%3E")
+    center / contain no-repeat;
 }

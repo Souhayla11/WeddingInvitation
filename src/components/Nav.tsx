@@ -1,4 +1,4 @@
-import { AnimatePresence, motion } from 'motion/react'
+import { AnimatePresence, motion, useScroll } from 'motion/react'
 import { useEffect, useRef, useState, type MouseEvent } from 'react'
 import { sections, type SectionId } from '../content/sections'
 import { nav } from '../content/ui'
@@ -22,6 +22,7 @@ function scrollToSection(id: string) {
 export function Nav() {
   const { t } = useLang()
   const spied = useScrollSpy(spyIds)
+  const { scrollYProgress } = useScroll()
   const active = spied === 'top' ? null : (spied as SectionId | null)
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
@@ -60,6 +61,7 @@ export function Nav() {
 
   return (
     <header className={styles.nav} data-solid={scrolled || menuOpen} data-menu={menuOpen}>
+      <motion.span className={styles.progress} style={{ scaleX: scrollYProgress }} aria-hidden="true" />
       <div className={styles.inner}>
         <a href="#top" className={styles.monogram} onClick={go('top')} aria-label={t(nav.home)}>
           {couple.initials[0]}

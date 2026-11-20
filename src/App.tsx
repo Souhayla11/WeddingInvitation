@@ -27,10 +27,14 @@ function alreadyOpened() {
 export default function App() {
   const { lang, t } = useLang()
   const [opened, setOpened] = useState(alreadyOpened)
+  const [revealed, setRevealed] = useState(alreadyOpened)
   const page = useRef<HTMLDivElement>(null)
   const firstRender = useRef(true)
 
+  const reveal = () => setRevealed(true)
+
   const open = () => {
+    setRevealed(true)
     setOpened(true)
     window.scrollTo(0, 0)
     try {
@@ -55,11 +59,11 @@ export default function App() {
       <a className="skip-link" href="#details">
         {t(nav.skip)}
       </a>
-      <AnimatePresence>{!opened && <Envelope key="envelope" onOpen={open} />}</AnimatePresence>
+      <AnimatePresence>{!opened && <Envelope key="envelope" onReveal={reveal} onOpen={open} />}</AnimatePresence>
       <div ref={page} className="site" inert={!opened}>
         <Nav />
         <main className="site-main">
-          <Hero ready={opened} />
+          <Hero ready={revealed} />
           <Details />
           <Schedule />
           <Recovery />

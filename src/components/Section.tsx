@@ -31,6 +31,7 @@ export function Section({ id, tone = 'cream', children }: SectionProps) {
           <motion.h2 id={`${id}-title`} className={styles.title} {...reveal(0.08)}>
             {emphasis(t(copy.title))}
           </motion.h2>
+          <Ornament />
           {copy.intro && (
             <motion.p className={styles.intro} {...reveal(0.16)}>
               {t(copy.intro)}
@@ -40,6 +41,54 @@ export function Section({ id, tone = 'cream', children }: SectionProps) {
         {children}
       </div>
     </section>
+  )
+}
+
+/** A fine rule with a diamond at its heart, drawn outward from the centre as it scrolls in. */
+function Ornament() {
+  const draw = (delay: number) => ({
+    initial: { pathLength: 0, opacity: 0 },
+    whileInView: { pathLength: 1, opacity: 1 },
+    viewport: { once: true },
+    transition: { duration: 1.3, delay, ease: [0.22, 1, 0.36, 1] as const },
+  })
+
+  return (
+    <svg className={styles.ornament} width="200" height="18" viewBox="0 0 200 18" fill="none" aria-hidden="true">
+      <motion.path d="M92 9H14" stroke="currentColor" strokeWidth="1" strokeLinecap="round" {...draw(0.25)} />
+      <motion.path d="M108 9H186" stroke="currentColor" strokeWidth="1" strokeLinecap="round" {...draw(0.25)} />
+      <motion.circle
+        cx="8"
+        cy="9"
+        r="1.6"
+        fill="currentColor"
+        initial={{ scale: 0 }}
+        whileInView={{ scale: 1 }}
+        viewport={{ once: true }}
+        transition={{ delay: 1.2, duration: 0.5 }}
+        style={{ transformOrigin: '8px 9px' }}
+      />
+      <motion.circle
+        cx="192"
+        cy="9"
+        r="1.6"
+        fill="currentColor"
+        initial={{ scale: 0 }}
+        whileInView={{ scale: 1 }}
+        viewport={{ once: true }}
+        transition={{ delay: 1.2, duration: 0.5 }}
+        style={{ transformOrigin: '192px 9px' }}
+      />
+      <motion.path
+        d="M100 2.5 106.5 9 100 15.5 93.5 9Z"
+        fill="currentColor"
+        initial={{ scale: 0, rotate: -45 }}
+        whileInView={{ scale: 1, rotate: 0 }}
+        viewport={{ once: true }}
+        transition={{ delay: 0.1, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+        style={{ transformOrigin: '100px 9px' }}
+      />
+    </svg>
   )
 }
 

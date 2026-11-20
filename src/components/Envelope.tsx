@@ -1,18 +1,32 @@
 import { motion, useReducedMotion } from 'motion/react'
 import { useEffect, useRef, useState } from 'react'
-import cardArt from '../../designs/envelope-card-art.png'
 import { envelope } from '../content/ui'
 import { couple, dateShort } from '../content/wedding'
 import { useLang } from '../i18n/LanguageContext'
-import { ease } from '../lib/motion'
 import { LanguageSwitch } from './LanguageSwitch'
 import { Seal } from './Seal'
 import styles from './Envelope.module.css'
 
-type Phase = 'closed' | 'opening' | 'rising'
+type Phase = 'closed' | 'lifting' | 'sliding'
 
-/** The sealed envelope guests open to enter the site. */
-export function Envelope({ onOpen }: { onOpen: () => void }) {
+/** Flap peels away slowly, speeds up as it swings over, then settles. */
+const flapEase: [number, number, number, number] = [0.5, 0.04, 0.24, 1]
+/** The pocket glides down like a sheet of paper being drawn away. */
+const slideEase: [number, number, number, number] = [0.62, 0, 0.28, 1]
+const soft: [number, number, number, number] = [0.22, 1, 0.36, 1]
+
+interface EnvelopeProps {
+  /** Fired as the flap lifts, so the hero starts playing underneath. */
+  onReveal: () => void
+  /** Fired once the envelope has fully cleared the screen. */
+  onOpen: () => void
+}
+
+/**
+ * A full-screen envelope laid over the live hero. The flap swings up and over,
+ * then the front pocket slides down, so the page appears to sit inside the envelope.
+ */
+export function Envelope({ onReveal, onOpen }: EnvelopeProps) {
   const { t } = useLang()
   const reduceMotion = useReducedMotion()
   const [phase, setPhase] = useState<Phase>('closed')
@@ -32,18 +46,20 @@ export function Envelope({ onOpen }: { onOpen: () => void }) {
   const open = () => {
     if (phase !== 'closed') return
     if (reduceMotion) {
+      onReveal()
       onOpen()
       return
     }
-    setPhase('opening')
+    setPhase('lifting')
     timers.current.push(
-      window.setTimeout(() => setPhase('rising'), 700),
-      window.setTimeout(onOpen, 1900),
+      window.setTimeout(onReveal, 450),
+      window.setTimeout(() => setPhase('sliding'), 1500),
+      window.setTimeout(onOpen, 3550),
     )
   }
 
-  const flapOpen = phase !== 'closed'
-  const cardOut = phase === 'rising'
+  const started = phase !== 'closed'
+  const sliding = phase === 'sliding'
 
   return (
     <motion.div
@@ -52,88 +68,88 @@ export function Envelope({ onOpen }: { onOpen: () => void }) {
       aria-modal="true"
       aria-label={t(envelope.open)}
       exit={{ opacity: 0 }}
-      transition={{ duration: 0.9, ease }}
+      transition={{ duration: 0.3 }}
     >
-      <div className={styles.topbar}>
-        <LanguageSwitch tone="light" />
-      </div>
-
-      <motion.p
-        className={styles.kicker}
-        initial={{ opacity: 0, y: -12 }}
-        animate={{ opacity: cardOut ? 0 : 1, y: 0 }}
-        transition={{ duration: 0.8, delay: cardOut ? 0 : 0.3, ease }}
-      >
-        {t(envelope.kicker)}
-      </motion.p>
-
       <motion.div
-        className={styles.stage}
-        initial={{ opacity: 0, y: 30, rotate: -2 }}
-        animate={{ opacity: 1, y: cardOut ? 60 : 0, rotate: 0 }}
-        exit={{ opacity: 0, scale: 1.12, y: 20 }}
-        transition={{ duration: 1, ease }}
+        className={styles.topbar}
+        animate={{ opacity: started ? 0 : 1 }}
+        transition={{ duration: 0.45, ease: soft }}
       >
-        <div className={styles.envelope} onClick={open}>
-          <div className={styles.back} />
-
-          <motion.div
-            className={styles.card}
-            animate={{ y: cardOut ? '-94%' : '0%' }}
-            transition={{ duration: 1.1, ease }}
-          >
-            <span className={styles.cardLine}>{t(envelope.cardLine)}</span>
-            <span className={styles.cardNames}>
-              {couple.one} <i>&amp;</i> {couple.two}
-            </span>
-            <span className={styles.cardDate}>{dateShort}</span>
-            <img className={styles.cardArt} src={cardArt} alt="" aria-hidden="true" />
-          </motion.div>
-
-          <svg className={styles.pocket} viewBox="0 0 300 200" preserveAspectRatio="none" aria-hidden="true">
-            <path d="M0 0 L150 112 L0 200 Z" fill="#f3f1ee" />
-            <path d="M300 0 L150 112 L300 200 Z" fill="#efedea" />
-            <path d="M0 200 L150 96 L300 200 Z" fill="#f9f8f6" />
-            <path d="M0 200 L150 96 L300 200" fill="none" stroke="#6b1e2e" strokeOpacity="0.08" />
-          </svg>
-
-          <motion.div
-            className={styles.flap}
-            style={{ zIndex: cardOut ? 1 : 4 }}
-            animate={{ rotateX: flapOpen ? 180 : 0 }}
-            transition={{ duration: 0.8, ease: [0.65, 0, 0.35, 1] }}
-          >
-            <span className={styles.flapFront} />
-            <span className={styles.flapBack} />
-          </motion.div>
-
-          <motion.button
-            type="button"
-            className={styles.seal}
-            onClick={(e) => {
-              e.stopPropagation()
-              open()
-            }}
-            aria-label={t(envelope.open)}
-            animate={flapOpen ? { scale: 1.3, opacity: 0, rotate: 12 } : { scale: 1, opacity: 1, rotate: 0 }}
-            whileHover={flapOpen ? undefined : { scale: 1.06 }}
-            whileTap={{ scale: 0.94 }}
-            transition={{ duration: 0.45, ease }}
-          >
-            <span className={styles.pulse} aria-hidden="true" />
-            <Seal size={84} />
-          </motion.button>
-        </div>
+        <LanguageSwitch />
       </motion.div>
 
-      <motion.p
-        className={styles.hint}
+      {/* Depth cast by the flap onto the page inside */}
+      <motion.div
+        className={styles.innerShade}
+        aria-hidden="true"
         initial={{ opacity: 0 }}
-        animate={{ opacity: flapOpen ? 0 : 1 }}
-        transition={{ duration: 0.6, delay: flapOpen ? 0 : 0.9 }}
+        animate={{ opacity: sliding ? 0 : started ? 1 : 0 }}
+        transition={{ duration: sliding ? 1.7 : 0.9, ease: soft }}
+      />
+
+      {/* Front of the envelope: everything below the V */}
+      <motion.div
+        className={styles.pocket}
+        onClick={open}
+        animate={{ y: sliding ? '106%' : '0%' }}
+        transition={{ duration: 1.9, ease: slideEase }}
       >
-        {t(coarse ? envelope.hintTouch : envelope.hintPointer)}
-      </motion.p>
+        <div className={styles.pocketLiner} />
+        <div className={styles.pocketFace} />
+      </motion.div>
+
+      <motion.div
+        className={styles.address}
+        animate={{ opacity: started ? 0 : 1, y: started ? 10 : 0 }}
+        transition={{ duration: 0.5, ease: soft, delay: started ? 0 : 0.5 }}
+      >
+        <span className={styles.names}>
+          {couple.one} <i>&amp;</i> {couple.two}
+        </span>
+        <span className={styles.date}>{dateShort}</span>
+        <span className={styles.hint}>{t(coarse ? envelope.hintTouch : envelope.hintPointer)}</span>
+      </motion.div>
+
+      {/* The flap carries the seal and swings up and over the top edge */}
+      <motion.div
+        className={styles.flap}
+        onClick={open}
+        animate={{ rotateX: started ? 180 : 0 }}
+        transition={{ duration: 1.9, ease: flapEase, delay: started ? 0.4 : 0 }}
+      >
+        <div className={styles.flapFront}>
+          <svg className={styles.flapLines} viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+            <polyline points="5.5,0 50,89 94.5,0" />
+          </svg>
+          <motion.p
+            className={styles.kicker}
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, ease: soft, delay: 0.3 }}
+          >
+            {t(envelope.kicker)}
+          </motion.p>
+        </div>
+        <div className={styles.flapBack} />
+
+        <motion.button
+          type="button"
+          className={styles.seal}
+          onClick={(e) => {
+            e.stopPropagation()
+            open()
+          }}
+          aria-label={t(envelope.open)}
+          initial={{ opacity: 0, scale: 0.85 }}
+          animate={started ? { opacity: 1, scale: [1, 1.12, 1], rotate: [0, -4, 0] } : { opacity: 1, scale: 1, rotate: 0 }}
+          whileHover={started ? undefined : { scale: 1.06 }}
+          whileTap={{ scale: 0.94 }}
+          transition={started ? { duration: 0.5, ease: soft } : { duration: 0.8, ease: soft, delay: 0.4 }}
+        >
+          <span className={styles.pulse} data-off={started} aria-hidden="true" />
+          <Seal size={96} />
+        </motion.button>
+      </motion.div>
     </motion.div>
   )
 }
